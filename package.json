@@ -81,7 +81,12 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "isomorphic-fetch": "^2.2.1"
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0"
   }
 }
