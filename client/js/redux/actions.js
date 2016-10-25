@@ -102,9 +102,20 @@ var addTrip = function(props) {
     method: 'put',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
-      trips: {
-        'name': props.name,
-        'start': props.start
+      'tripName': props.tripName,
+      'poi': {
+        'name': props.poi.name,
+        'location': props.poi.location.display_address,
+        'coordinate': props.poi.location.coordinate,
+        'id': props.poi.id,
+        'url': props.poi.url,
+        'image_url': props.poi.image_url,
+        'rating': props.poi.rating,
+        'review_count': props.poi.review_count,
+        'rating_img_url': props.poi.rating_img_url,
+        'rating_img_url_small': props.poi.rating_img_url_small,
+        'display_phone': props.poi.display_phone,
+        'categories': props.poi.categories
       }
     })
   }
@@ -134,15 +145,27 @@ var addPoi = function(props) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
     var userId = props.userId;
-    var tripId = props.tripId;
-    var url = `http://localhost:8080/user/trips/${userId}/${tripId}`;
+    var tripName = props.tripName;
+    var url = `http://localhost:8080/user/trips/${userId}/${tripName}`;
   return fetch(url,
   {
     method: 'put',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
-      'name': props.name,
-      'location': props.location
+      'poi': {
+        'name': props.poi.name,
+        'location': props.poi.location.display_address,
+        'coordinate': props.poi.location.coordinate,
+        'id': props.poi.id,
+        'url': props.poi.url,
+        'image_url': props.poi.image_url,
+        'rating': props.poi.rating,
+        'review_count': props.poi.review_count,
+        'rating_img_url': props.poi.rating_img_url,
+        'rating_img_url_small': props.poi.rating_img_url_small,
+        'display_phone': props.poi.display_phone,
+        'categories': props.poi.categories
+      }
     })
   }
     ).then(function(response) {
