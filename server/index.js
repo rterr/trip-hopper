@@ -19,7 +19,6 @@ var yelp = new Yelp({
   token_secret: process.env.token_secret,
 });
 
->>>>>>> master
 const HOST = process.env.HOST;
 const PORT = process.env.PORT || 8080;
 
