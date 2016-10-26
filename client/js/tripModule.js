@@ -3,9 +3,9 @@ var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 //var actions = require('../actions');
 
-var tripDisplay = require('./client/js/tripDisplay');
-var tripSaveLoad = require('./client/js/tripSaveLoad');
-var tripTitle = require('./client/js/tripTitle');
+var tripDisplay = require('./tripDisplay');
+var tripSaveLoad = require('./tripSaveLoad');
+var tripTitle = require('./tripTitle');
 
 var TripModule = React.createClass({
   render: function(){

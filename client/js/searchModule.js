@@ -3,8 +3,8 @@ var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 //var actions = require('../actions');
 
-var SearchInput = require('./client/js/searchInput');
-var SearchResults = require('./client/js/searchResults');
+var SearchInput = require('./searchInput');
+var SearchResults = require('./searchResults');
 
 var SearchModule = React.createClass({
   render: function(){
