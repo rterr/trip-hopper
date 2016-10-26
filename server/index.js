@@ -68,7 +68,7 @@ app.post('/trips', jsonParser, function(req, res) {
 
 
 //User model schema
-var User = require('./models/user');
+var User = require('./models/users');
 
 try {
   var config = require('../config');
