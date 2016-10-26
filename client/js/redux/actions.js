@@ -41,7 +41,7 @@ var fetchUser = function() {
   	var headers = new Headers({
   		Authorization: 'bearer ' + token
   	});
-    var url = 'http://localhost:8080/user';
+    var url = '/user';
     return fetch(url, {headers: headers}).then(function(response) {
       if (response.status < 200 || response.status >= 300) {
         var error = new Error(response.statusText);
@@ -68,7 +68,7 @@ var poiSearch = function(searchTerm, location) {
   return function(dispatch) {
     var location = location;
     var searchTerm = searchTerm;
-    var url = `http://localhost:8080/api/${searchTerm}/${location}`;
+    var url = `/api/${searchTerm}/${location}`;
     return fetch(url)
     .then(function(response) {
       if (response.status < 200 || response.status >= 300) {
@@ -96,7 +96,7 @@ var addTrip = function(props) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
     var userId = props.userId;
-    var url = `http://localhost:8080/user/${userId}`;
+    var url = `/user/${userId}`;
   return fetch(url,
   {
     method: 'put',
@@ -146,7 +146,7 @@ var addPoi = function(props) {
     var token = Cookies.get('accessToken');
     var userId = props.userId;
     var tripName = props.tripName;
-    var url = `http://localhost:8080/user/trips/${userId}/${tripName}`;
+    var url = `/user/trips/${userId}/${tripName}`;
   return fetch(url,
   {
     method: 'put',
