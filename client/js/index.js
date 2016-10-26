@@ -1,4 +1,5 @@
-import 'babel-polyfill';
+// import 'babel-polyfill';
+var Yelp = require('yelp');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -27,3 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
       //</Provider>
       , document.getElementById('app'));
 });
+
+
+console.log(`Client running in ${process.env.NODE_ENV} mode`);
