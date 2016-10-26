@@ -3,18 +3,35 @@ import express from 'express';
 var mongoose = require('mongoose');
 var Trip = require('./models/trips.js');
 var jsonParser = require('body-parser');
-const HOST = process.env.HOST;
-const PORT = process.env.PORT || 8080;
+var dotenv = require('dotenv');
+var request = require('request');
+var Yelp = require('yelp');
+import unirest from 'unirest';
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
-import unirest from 'unirest';
-
 var passport = require("passport");
+
+dotenv.load();
+var yelp = new Yelp({
+  consumer_key: process.env.consumer_key,
+  consumer_secret: process.env.consumer_secret,
+  token: process.env.token,
+  token_secret: process.env.token_secret,
+});
+
+const HOST = process.env.HOST;
+const PORT = process.env.PORT || 8080;
+
+
+
+
 mongoose.connect('mongodb://localhost/trips');
 console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
 const app = express();
 
+app.use(passport.initialize());
+app.use(jsonParser.json());
 app.use(express.static(process.env.CLIENT_PATH));
 
 
@@ -62,8 +79,7 @@ try {
 // //var db = process.env.DBPATH || config.mongoDB.dbPath;
 // //mongoose.connect(db);
 //
-app.use(passport.initialize());
-app.use(jsonParser.json());
+
 
 // Google OAuth Strategy
 passport.use(new GoogleStrategy({
@@ -169,7 +185,23 @@ passport.use(new BearerStrategy(
 //
 //
 //
-//
+
+app.get('/api/:term/:location', function(req, res){
+  let term = req.params.term;
+  let location = req.params.location;
+  yelp.search({ term: term,
+   location: location,
+   sort: '1', limit: '3', radius_filter:'2000'})
+  .then(function (data) {
+    // console.log(data)
+    return res.send(data)
+   })
+  .catch(function (err) {
+    console.error(err);
+  });
+});
+
+
 function runServer() {
     return new Promise((resolve, reject) => {
         app.listen(PORT, HOST, (err) => {
