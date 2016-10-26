@@ -86,6 +86,8 @@
     "isomorphic-fetch": "^2.2.1",
     "oauthio-web": "^0.6.1",
     "passport": "^0.3.2",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-http-bearer": "^1.0.1",
     "unirest": "^0.5.1"
   }
 }

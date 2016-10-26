@@ -5,18 +5,17 @@ var Trip = require('./models/trips.js');
 var jsonParser = require('body-parser');
 const HOST = process.env.HOST;
 const PORT = process.env.PORT || 8080;
-mongoose.connect('mongodb://localhost/trips');
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 import unirest from 'unirest';
 
 var passport = require("passport");
-
+mongoose.connect('mongodb://localhost/trips');
 console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
 const app = express();
 
-app.use = express();
+app.use(express.static(process.env.CLIENT_PATH));
 
 
 app.get("/", function(req, res){
@@ -51,21 +50,20 @@ app.post('/trips', jsonParser, function(req, res) {
 });
 
 
-// User model schema
-var User = require('./models/user');
+//User model schema
+var User = require('./models/users');
 
 try {
   var config = require('../config');
 } catch (e) {};
 
-// Setup for DB connection
-// var db = 'mongodb://localhost:27017/mtb-trails';
-var db = process.env.DBPATH || config.mongoDB.dbPath;
-mongoose.connect(db);
-
+// // Setup for DB connection
+// var db = 'mongodb://localhost:27017/trips';
+// //var db = process.env.DBPATH || config.mongoDB.dbPath;
+// //mongoose.connect(db);
+//
 app.use(passport.initialize());
-// app.use('/', express.static('build'));
-app.use(bodyParser.json());
+app.use(jsonParser.json());
 
 // Google OAuth Strategy
 passport.use(new GoogleStrategy({
@@ -73,16 +71,17 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.CLIENTSECRET || config.googleAuth.clientSecret,
   callbackURL: process.env.CALLBACKURL || config.googleAuth.callbackURL,
   },
-  function(accessToken, refreshToken, profile, done) {
-    User.find({googleID: profile.id}, function(err, user) {
-      if (!user.length) {
+
+function(accessToken, refreshToken, profile, done) {
+    User.findOne({googleID: profile.id}, function(err, user) {
+      if (!user) {
         User.create({
           googleID: profile.id,
           accessToken: accessToken,
           favorites: [],
           fullName: profile.displayName
         }, function(err, users) {
-          return done(err, user);
+          return done(err, users);
         });
       } else {
         return done(err, user);
@@ -102,7 +101,7 @@ app.get('/auth/google/callback',
   }),
   function(req, res) {
     res.cookie('accessToken', req.user.accessToken, {expires: 0});
-    res.redirect('/#/trails');
+    //res.redirect('/#/trails');
   }
 );
 
@@ -111,8 +110,9 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-app.get('/user', passport.authenticate('bearer', {session: false}), function(req, res) {
-  User.find({}, function(err, users) {
+app.get('/users', passport.authenticate('bearer', {session: false}), function(req, res) {
+  var googleID = req.user.googleID;
+  User.find({googleID: googleID}, function(err, users) {
     if (err) {
       res.send("Error has occured")
     } else {
@@ -124,7 +124,7 @@ app.get('/user', passport.authenticate('bearer', {session: false}), function(req
 // Bearer Strategy
 passport.use(new BearerStrategy(
   function(token, done) {
-  User.find({ accessToken: token },
+  User.findOne({ accessToken: token },
     function(err, users) {
       if(err) {
           return done(err)
@@ -138,38 +138,38 @@ passport.use(new BearerStrategy(
 }
 ));
 
-// PUT: Add to favorites (avoids duplicates)
-app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
-  function(req, res) {
-    User.update({ 'googleID':req.params.googleID }, 
-                  { $addToSet : { 'favorites':req.body.favorites } },
-      function(err, user) {
-        if(err) {
-          return res.send(err)
-        }
-        return res.send({message: "Favorite added!"});
-      });
-  });
-
-// PUT: Remove from favorites
-app.put('/user/favorites/:trail_id', passport.authenticate('bearer', {session: false}),
-  function(req, res) {
-    var trailID = parseInt(req.params.trail_id);
-    var googleID = req.body.googleID;
-    User.update( { 'favorites.trail_id':trailID, 'googleID':googleID }, 
-                  { $pull : { 'favorites':{ 'trail_id':trailID } } },
-                  { new: true },
-      function(err, user) {
-        if(err) {
-          return res.send(err)
-        }
-        return res.send({message: "Favorite removed!"});
-      });
-  });
-
-
-
-
+// // PUT: Add to favorites (avoids duplicates)
+// app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
+//   function(req, res) {
+//     User.update({ 'googleID':req.params.googleID },
+//                   { $addToSet : { 'favorites':req.body.favorites } },
+//       function(err, user) {
+//         if(err) {
+//           return res.send(err)
+//         }
+//         return res.send({message: "Favorite added!"});
+//       });
+//   });
+//
+// // PUT: Remove from favorites
+// app.put('/user/favorites/:trail_id', passport.authenticate('bearer', {session: false}),
+//   function(req, res) {
+//     var trailID = parseInt(req.params.trail_id);
+//     var googleID = req.body.googleID;
+//     User.update( { 'favorites.trail_id':trailID, 'googleID':googleID },
+//                   { $pull : { 'favorites':{ 'trail_id':trailID } } },
+//                   { new: true },
+//       function(err, user) {
+//         if(err) {
+//           return res.send(err)
+//         }
+//         return res.send({message: "Favorite removed!"});
+//       });
+//   });
+//
+//
+//
+//
 function runServer() {
     return new Promise((resolve, reject) => {
         app.listen(PORT, HOST, (err) => {
