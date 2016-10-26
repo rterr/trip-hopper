@@ -39,32 +39,6 @@ app.get("/", function(req, res){
   res.send("Hello World");
 })
 
-app.get("/trip-hopper", function(req, res){
- User.find(function(err, user) {
-        if (err) {
-            return res.sendStatus(500);
-        }
-        res.send(user);
-
-    });
-});
-
-app.post('/trip-hopper', jsonParser, function(req, res) {
-    if (!req.body.username){
-        return res.status(422).json({message: 'Missing field: tripname'})
-    }
-     if (typeof req.body.username !== 'string'){
-        return res.status(422).json({message: 'Incorrect field type: tripname'})
-    }
-    User.create({
-        name: req.body.name
-    }, function(err, user) {
-        if (err) {
-            return res.sendStatus(500);
-        }
-        res.status(201).location('/trips/'+trip._id).json({});
-    });
-});
 
 
 //User model schema
@@ -94,8 +68,7 @@ function(accessToken, refreshToken, profile, done) {
         User.create({
           googleID: profile.id,
           accessToken: accessToken,
-          favorites: [],
-          fullName: profile.displayName
+          trips: []
         }, function(err, user) {
           return done(err, user);
         });
@@ -120,22 +93,12 @@ app.get('/auth/google/callback',
     //res.redirect('/#/trails');
   }
 );
-
+//Is this all that we need?
 app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
 
-app.get('/user', passport.authenticate('bearer', {session: false}), function(req, res) {
-  var googleID = req.user.googleID;
-  User.find({googleID: googleID}, function(err, user) {
-    if (err) {
-      res.send("Error has occured")
-    } else {
-      res.json(user);
-    }
-  });
-});
 
 // Bearer Strategy
 passport.use(new BearerStrategy(
@@ -153,39 +116,19 @@ passport.use(new BearerStrategy(
   );
 }
 ));
+//confirm user authentication/creation
+app.get('/user', passport.authenticate('bearer', {session: false}), function(req, res) {
+  var googleID = req.user.googleID;
+  User.find({googleID: googleID}, function(err, user) {
+    if (err) {
+      res.send("Error has occured")
+    } else {
+      res.json(user);
+    }
+  });
+});
 
-// PUT: Add to favorites (avoids duplicates)
-// app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
-//   function(req, res) {
-//     User.update({ 'googleID':req.params.googleID },
-//                   { $addToSet : { 'favorites':req.body.favorites } },
-//       function(err, user) {
-//         if(err) {
-//           return res.send(err)
-//         }
-//         return res.send({message: "Favorite added!"});
-//       });
-//   });
-//  'favorites.trail_id':trailID, 'googleID':googleID },
-//                   { $pull : { 'favorites':{ 'trail_id':trailID } } },
-//                   { new: true },
-//       function(err,//
-// // PUT: Remove from favorites
-// app.put('/user/favorites/:trail_id', passport.authenticate('bearer', {session: false}),
-//   function(req, res) {
-//     var trailID = parseInt(req.params.trail_id);
-//     var googleID = req.body.googleID;
-//     User.update( { user) {
-//         if(err) {
-//           return res.send(err)
-//         }
-//         return res.send({message: "Favorite removed!"});
-//       });
-//   });
-//
-//
-//
-
+//Yelp request endpoint
 app.get('/api/:term/:location', function(req, res){
   let term = req.params.term;
   let location = req.params.location;
@@ -200,6 +143,37 @@ app.get('/api/:term/:location', function(req, res){
     console.error(err);
   });
 });
+
+
+
+// PUT: Add to trips (avoids duplicates)
+app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
+  function(req, res) {
+    User.update({ 'googleID':req.params.googleID },
+                  { $push: { 'trips':req.body } },
+      function(err, user) {
+        if(err) {
+          return res.send(err)
+        }
+        return res.send({message: "Trip added!"});
+      });
+  });
+
+// PUT: Remove from trips
+app.put('/user/trips/:userId/:tripName', passport.authenticate('bearer', {session: false}),
+  function(req, res) {
+    var tripName = parseInt(req.params.tripName);
+    var googleID = req.body.googleID;
+    User.update( { 'trips.tripName':tripName, 'googleID':googleID },
+                  { $push : { 'pois':{ 'poi':req.body.poi } } },
+                  { new: true },
+      function(err, user) {
+        if(err) {
+          return res.send(err)
+        }
+        return res.send({message: "Trip removed!"});
+      });
+  });
 
 
 function runServer() {
