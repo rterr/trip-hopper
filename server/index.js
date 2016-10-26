@@ -39,17 +39,17 @@ app.get("/", function(req, res){
   res.send("Hello World");
 })
 
-app.get("/trips", function(req, res){
-  Trip.find(function(err, users) {
+app.get("/trip-hopper", function(req, res){
+ User.find(function(err, user) {
         if (err) {
             return res.sendStatus(500);
         }
-        res.send(users);
+        res.send(user);
 
     });
 });
 
-app.post('/trips', jsonParser, function(req, res) {
+app.post('/trip-hopper', jsonParser, function(req, res) {
     if (!req.body.username){
         return res.status(422).json({message: 'Missing field: tripname'})
     }
@@ -68,7 +68,7 @@ app.post('/trips', jsonParser, function(req, res) {
 
 
 //User model schema
-var User = require('./models/users');
+var User = require('./models/user');
 
 try {
   var config = require('../config');
@@ -96,8 +96,8 @@ function(accessToken, refreshToken, profile, done) {
           accessToken: accessToken,
           favorites: [],
           fullName: profile.displayName
-        }, function(err, users) {
-          return done(err, users);
+        }, function(err, user) {
+          return done(err, user);
         });
       } else {
         return done(err, user);
@@ -126,13 +126,13 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-app.get('/users', passport.authenticate('bearer', {session: false}), function(req, res) {
+app.get('/user', passport.authenticate('bearer', {session: false}), function(req, res) {
   var googleID = req.user.googleID;
-  User.find({googleID: googleID}, function(err, users) {
+  User.find({googleID: googleID}, function(err, user) {
     if (err) {
       res.send("Error has occured")
     } else {
-      res.json(users);
+      res.json(user);
     }
   });
 });
@@ -141,20 +141,20 @@ app.get('/users', passport.authenticate('bearer', {session: false}), function(re
 passport.use(new BearerStrategy(
   function(token, done) {
   User.findOne({ accessToken: token },
-    function(err, users) {
+    function(err, user) {
       if(err) {
           return done(err)
       }
-      if(!users) {
+      if(!user) {
           return done(null, false)
       }
-      return done(null, users, { scope: 'read' })
+      return done(null, user, { scope: 'read' })
     }
   );
 }
 ));
 
-// // PUT: Add to favorites (avoids duplicates)
+// PUT: Add to favorites (avoids duplicates)
 // app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
 //   function(req, res) {
 //     User.update({ 'googleID':req.params.googleID },
@@ -166,16 +166,16 @@ passport.use(new BearerStrategy(
 //         return res.send({message: "Favorite added!"});
 //       });
 //   });
-//
+//  'favorites.trail_id':trailID, 'googleID':googleID },
+//                   { $pull : { 'favorites':{ 'trail_id':trailID } } },
+//                   { new: true },
+//       function(err,//
 // // PUT: Remove from favorites
 // app.put('/user/favorites/:trail_id', passport.authenticate('bearer', {session: false}),
 //   function(req, res) {
 //     var trailID = parseInt(req.params.trail_id);
 //     var googleID = req.body.googleID;
-//     User.update( { 'favorites.trail_id':trailID, 'googleID':googleID },
-//                   { $pull : { 'favorites':{ 'trail_id':trailID } } },
-//                   { new: true },
-//       function(err, user) {
+//     User.update( { user) {
 //         if(err) {
 //           return res.send(err)
 //         }
