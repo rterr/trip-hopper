@@ -55,6 +55,59 @@ var initialState = {
 					categories: [['Italian', 'italian'], ['Diner', 'diner']]
 				}
 			]
+		},
+		{
+			tripName: 'Movie Night',
+			poi: [
+				{
+					name: 'Location a',
+					location: {
+						display_address: ['123 Main St'],
+						coordinate: {latitude: 39.27, longitude: -40.34},
+					},
+					id: 'location-a',
+					url: 'www.google.com/location-a',
+					image_url: 'www.google.com/image_url_loc-a',
+					rating: 4.5,
+					review_count: 25,
+					rating_img_url: 'www.google.com/rating_img_loc-a',
+					rating_img_url_small: 'www.google.com/rating_img_small_loc-a',
+					display_phone: '1-800-555-5555',
+					categories: [['Southern', 'southern'], ['Bars', 'bar']]
+				},
+				{
+					name: 'Location b',
+					location: {
+						display_address: ['456 South St'],
+						coordinate: {latitude: 40.45, longitude: -50.12},
+					},
+					id: 'location-b',
+					url: 'www.google.com/location-b',
+					image_url: 'www.google.com/image_url_loc-b',
+					rating: 3.7,
+					review_count: 30,
+					rating_img_url: 'www.google.com/rating_img_loc-b',
+					rating_img_url_small: 'www.google.com/rating_img_small_loc-b',
+					display_phone: '1-800-555-5555',
+					categories: [['Mexican', 'mexican'], ['Restaurant', 'restaurant']]
+				},
+				{
+					name: 'Location c',
+					location: {
+						display_address: ['789 Park Ave'],
+						coordinate: {latitude: 25.43, longitude: -27.54},
+					},
+					id: 'location-c',
+					url: 'www.google.com/location-c',
+					image_url: 'www.google.com/image_url_loc-c',
+					rating: 2.0,
+					review_count: 7,
+					rating_img_url: 'www.google.com/rating_img_loc-c',
+					rating_img_url_small: 'www.google.com/rating_img_small_loc-c',
+					display_phone: '1-800-555-5555',
+					categories: [['Italian', 'italian'], ['Diner', 'diner']]
+				}
+			]
 		}
 	],
 	searchResults: [
