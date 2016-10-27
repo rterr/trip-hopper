@@ -115,8 +115,9 @@ app.get('/auth/google/callback',
     session: false
   }),
   function(req, res) {
+    console.log(req.user.accessToken)
     res.cookie('accessToken', req.user.accessToken, {expires: 0});
-    //res.redirect('/#/trails');
+    res.redirect('/');
   }
 );
 //Is this all that we need?
@@ -174,13 +175,14 @@ app.get('/api/:term/:location', function(req, res){
 // PUT: Add to trips (avoids duplicates)
 app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
   function(req, res) {
-    User.update({ 'googleID':req.params.googleID },
+    User.findOneAndUpdate({ 'googleID':req.user.googleID },
                   { $push: { 'trips':req.body } },
+                  {new: true},
       function(err, user) {
         if(err) {
           return res.send(err)
         }
-        return res.send({message: "Trip added!"});
+        return res.json(user);
       });
   });
 
@@ -196,7 +198,7 @@ app.put('/user/trips/:userId/:tripName', passport.authenticate('bearer', {sessio
         if(err) {
           return res.send(err)
         }
-        return res.send({message: "Trip removed!"});
+        return res.json(user);
       });
   });
 
