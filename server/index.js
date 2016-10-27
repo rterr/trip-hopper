@@ -39,8 +39,13 @@ app.get("/", function(req, res){
   res.send("Hello World");
 })
 
+<<<<<<< HEAD
 app.get("/trip-hopper", function(req, res){
  User.find(function(err, user) {
+=======
+app.get("/trips", function(req, res){
+  Trip.find(function(err, user) {
+>>>>>>> 061cfc2c93665348e702704a54ab283fdac84355
         if (err) {
             return res.sendStatus(500);
         }
@@ -94,8 +99,12 @@ function(accessToken, refreshToken, profile, done) {
         User.create({
           googleID: profile.id,
           accessToken: accessToken,
+<<<<<<< HEAD
           favorites: [],
           fullName: profile.displayName
+=======
+          trips: []
+>>>>>>> 061cfc2c93665348e702704a54ab283fdac84355
         }, function(err, user) {
           return done(err, user);
         });
@@ -120,12 +129,13 @@ app.get('/auth/google/callback',
     //res.redirect('/#/trails');
   }
 );
-
+//Is this all that we need?
 app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
 
+<<<<<<< HEAD
 app.get('/user', passport.authenticate('bearer', {session: false}), function(req, res) {
   var googleID = req.user.googleID;
   User.find({googleID: googleID}, function(err, user) {
@@ -137,6 +147,8 @@ app.get('/user', passport.authenticate('bearer', {session: false}), function(req
   });
 });
 
+=======
+>>>>>>> 061cfc2c93665348e702704a54ab283fdac84355
 // Bearer Strategy
 passport.use(new BearerStrategy(
   function(token, done) {
@@ -153,7 +165,19 @@ passport.use(new BearerStrategy(
   );
 }
 ));
+//confirm user authentication/creation
+app.get('/user', passport.authenticate('bearer', {session: false}), function(req, res) {
+  var googleID = req.user.googleID;
+  User.find({googleID: googleID}, function(err, user) {
+    if (err) {
+      res.send("Error has occured")
+    } else {
+      res.json(user);
+    }
+  });
+});
 
+<<<<<<< HEAD
 // PUT: Add to favorites (avoids duplicates)
 // app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
 //   function(req, res) {
@@ -186,6 +210,9 @@ passport.use(new BearerStrategy(
 //
 //
 
+=======
+//Yelp request endpoint
+>>>>>>> 061cfc2c93665348e702704a54ab283fdac84355
 app.get('/api/:term/:location', function(req, res){
   let term = req.params.term;
   let location = req.params.location;
@@ -200,6 +227,37 @@ app.get('/api/:term/:location', function(req, res){
     console.error(err);
   });
 });
+
+
+
+// PUT: Add to trips (avoids duplicates)
+app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
+  function(req, res) {
+    User.update({ 'googleID':req.params.googleID },
+                  { $push: { 'trips':req.body } },
+      function(err, user) {
+        if(err) {
+          return res.send(err)
+        }
+        return res.send({message: "Trip added!"});
+      });
+  });
+
+// PUT: Remove from trips
+app.put('/user/trips/:userId/:tripName', passport.authenticate('bearer', {session: false}),
+  function(req, res) {
+    var tripName = parseInt(req.params.tripName);
+    var googleID = req.body.googleID;
+    User.update( { 'trips.tripName':tripName, 'googleID':googleID },
+                  { $push : { 'pois':{ 'poi':req.body.poi } } },
+                  { new: true },
+      function(err, user) {
+        if(err) {
+          return res.send(err)
+        }
+        return res.send({message: "Trip removed!"});
+      });
+  });
 
 
 function runServer() {
