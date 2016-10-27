@@ -41,68 +41,6 @@ app.get("/", function(req, res){
   res.send("Hello World");
 })
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-app.get("/trip-hopper", function(req, res){
- User.find(function(err, user) {
-=======
-app.get("/trips", function(req, res){
-  Trip.find(function(err, user) {
->>>>>>> 061cfc2c93665348e702704a54ab283fdac84355
-        if (err) {
-            return res.sendStatus(500);
-        }
-        res.send(user);
-
-    });
-});
-
-app.post('/trip-hopper', jsonParser, function(req, res) {
-    if (!req.body.username){
-        return res.status(422).json({message: 'Missing field: tripname'})
-    }
-     if (typeof req.body.username !== 'string'){
-        return res.status(422).json({message: 'Incorrect field type: tripname'})
-    }
-    User.create({
-        name: req.body.name
-    }, function(err, user) {
-        if (err) {
-            return res.sendStatus(500);
-        }
-        res.status(201).location('/trips/'+trip._id).json({});
-    });
-});
-
-=======
-// app.get("/trip-hopper", function(req, res){
-//  User.find(function(err, user) {
-//         if (err) {
-//             return res.sendStatus(500);
-//         }
-//         res.send(user);
-//
-//     });
-// });
-//
-// app.post('/trip-hopper', jsonParser, function(req, res) {
-//     if (!req.body.username){
-//         return res.status(422).json({message: 'Missing field: tripname'})
-//     }
-//      if (typeof req.body.username !== 'string'){
-//         return res.status(422).json({message: 'Incorrect field type: tripname'})
-//     }
-//     User.create({
-//         name: req.body.name
-//     }, function(err, user) {
-//         if (err) {
-//             return res.sendStatus(500);
-//         }
-//         res.status(201).location('/trips/'+trip._id).json({});
-//     });
-// });
->>>>>>> 46b6b75b949a8463455afac93f35bfa2ae367608
-
 //User model schema
 var User = require('./models/users');
 
@@ -130,16 +68,7 @@ function(accessToken, refreshToken, profile, done) {
         User.create({
           googleID: profile.id,
           accessToken: accessToken,
-<<<<<<< HEAD
-<<<<<<< HEAD
-          favorites: [],
-          fullName: profile.displayName
-=======
           trips: []
->>>>>>> 061cfc2c93665348e702704a54ab283fdac84355
-=======
-          trips: []
->>>>>>> 46b6b75b949a8463455afac93f35bfa2ae367608
         }, function(err, user) {
           return done(err, user);
         });
@@ -171,24 +100,6 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-app.get('/user', passport.authenticate('bearer', {session: false}), function(req, res) {
-  var googleID = req.user.googleID;
-  User.find({googleID: googleID}, function(err, user) {
-    if (err) {
-      res.send("Error has occured")
-    } else {
-      res.json(user);
-    }
-  });
-});
-
-=======
->>>>>>> 061cfc2c93665348e702704a54ab283fdac84355
-=======
-
->>>>>>> 46b6b75b949a8463455afac93f35bfa2ae367608
 // Bearer Strategy
 passport.use(new BearerStrategy(
   function(token, done) {
@@ -217,46 +128,6 @@ app.get('/user', passport.authenticate('bearer', {session: false}), function(req
   });
 });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-// PUT: Add to favorites (avoids duplicates)
-// app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
-//   function(req, res) {
-//     User.update({ 'googleID':req.params.googleID },
-//                   { $addToSet : { 'favorites':req.body.favorites } },
-//       function(err, user) {
-//         if(err) {
-//           return res.send(err)
-//         }
-//         return res.send({message: "Favorite added!"});
-//       });
-//   });
-//  'favorites.trail_id':trailID, 'googleID':googleID },
-//                   { $pull : { 'favorites':{ 'trail_id':trailID } } },
-//                   { new: true },
-//       function(err,//
-// // PUT: Remove from favorites
-// app.put('/user/favorites/:trail_id', passport.authenticate('bearer', {session: false}),
-//   function(req, res) {
-//     var trailID = parseInt(req.params.trail_id);
-//     var googleID = req.body.googleID;
-//     User.update( { user) {
-//         if(err) {
-//           return res.send(err)
-//         }
-//         return res.send({message: "Favorite removed!"});
-//       });
-//   });
-//
-//
-//
-
-=======
-//Yelp request endpoint
->>>>>>> 061cfc2c93665348e702704a54ab283fdac84355
-=======
-//Yelp request endpoint
->>>>>>> 46b6b75b949a8463455afac93f35bfa2ae367608
 app.get('/api/:term/:location', function(req, res){
   let term = req.params.term;
   let location = req.params.location;
