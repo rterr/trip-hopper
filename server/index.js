@@ -41,32 +41,6 @@ app.get("/", function(req, res){
   res.send("Hello World");
 })
 
-// app.get("/trip-hopper", function(req, res){
-//  User.find(function(err, user) {
-//         if (err) {
-//             return res.sendStatus(500);
-//         }
-//         res.send(user);
-//
-//     });
-// });
-//
-// app.post('/trip-hopper', jsonParser, function(req, res) {
-//     if (!req.body.username){
-//         return res.status(422).json({message: 'Missing field: tripname'})
-//     }
-//      if (typeof req.body.username !== 'string'){
-//         return res.status(422).json({message: 'Incorrect field type: tripname'})
-//     }
-//     User.create({
-//         name: req.body.name
-//     }, function(err, user) {
-//         if (err) {
-//             return res.sendStatus(500);
-//         }
-//         res.status(201).location('/trips/'+trip._id).json({});
-//     });
-// });
 
 //User model schema
 var User = require('./models/users');
