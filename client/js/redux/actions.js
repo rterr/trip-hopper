@@ -103,7 +103,7 @@ var addTrip = function(props) {
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
       'tripName': props.tripName,
-      'poi': {
+      'pois': [{
         'name': props.poi.name,
         'location': props.poi.location.display_address,
         'coordinate': props.poi.location.coordinate,
@@ -116,7 +116,7 @@ var addTrip = function(props) {
         'rating_img_url_small': props.poi.rating_img_url_small,
         'display_phone': props.poi.display_phone,
         'categories': props.poi.categories
-      }
+      }]
     })
   }
     ).then(function(response) {
@@ -152,20 +152,18 @@ var addPoi = function(props) {
     method: 'put',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
-      'poi': {
-        'name': props.poi.name,
-        'location': props.poi.location.display_address,
-        'coordinate': props.poi.location.coordinate,
-        'id': props.poi.id,
-        'url': props.poi.url,
-        'image_url': props.poi.image_url,
-        'rating': props.poi.rating,
-        'review_count': props.poi.review_count,
-        'rating_img_url': props.poi.rating_img_url,
-        'rating_img_url_small': props.poi.rating_img_url_small,
-        'display_phone': props.poi.display_phone,
-        'categories': props.poi.categories
-      }
+      'name': props.poi.name,
+      'location': props.poi.location.display_address,
+      'coordinate': props.poi.location.coordinate,
+      'id': props.poi.id,
+      'url': props.poi.url,
+      'image_url': props.poi.image_url,
+      'rating': props.poi.rating,
+      'review_count': props.poi.review_count,
+      'rating_img_url': props.poi.rating_img_url,
+      'rating_img_url_small': props.poi.rating_img_url_small,
+      'display_phone': props.poi.display_phone,
+      'categories': props.poi.categories
     })
   }
     ).then(function(response) {
