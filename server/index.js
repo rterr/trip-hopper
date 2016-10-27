@@ -10,8 +10,10 @@ import unirest from 'unirest';
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var passport = require("passport");
+var config = require('../config')
 
 dotenv.load();
+
 var yelp = new Yelp({
   consumer_key: process.env.consumer_key,
   consumer_secret: process.env.consumer_secret,
@@ -25,7 +27,7 @@ const PORT = process.env.PORT || 8080;
 
 
 
-mongoose.connect('mongodb://localhost/trips');
+mongoose.connect(config.mongoDB.dbPath);
 console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
 const app = express();
@@ -39,7 +41,32 @@ app.get("/", function(req, res){
   res.send("Hello World");
 })
 
-
+// app.get("/trip-hopper", function(req, res){
+//  User.find(function(err, user) {
+//         if (err) {
+//             return res.sendStatus(500);
+//         }
+//         res.send(user);
+//
+//     });
+// });
+//
+// app.post('/trip-hopper', jsonParser, function(req, res) {
+//     if (!req.body.username){
+//         return res.status(422).json({message: 'Missing field: tripname'})
+//     }
+//      if (typeof req.body.username !== 'string'){
+//         return res.status(422).json({message: 'Incorrect field type: tripname'})
+//     }
+//     User.create({
+//         name: req.body.name
+//     }, function(err, user) {
+//         if (err) {
+//             return res.sendStatus(500);
+//         }
+//         res.status(201).location('/trips/'+trip._id).json({});
+//     });
+// });
 
 //User model schema
 var User = require('./models/users');
@@ -162,12 +189,12 @@ app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
   });
 
 // PUT: Remove from trips
-app.put('/user/trips/:userId/:tripName', passport.authenticate('bearer', {session: false}),
+app.put('/user/trips/:googleID/:tripName', passport.authenticate('bearer', {session: false}),
   function(req, res) {
-    var tripName = parseInt(req.params.tripName);
-    var googleID = req.body.googleID;
-    User.update( { 'trips.tripName':tripName, 'googleID':googleID },
-                  { $push : { 'pois':{ 'poi':req.body.poi } } },
+    var tripName = req.params.tripName;
+    var googleID = req.user.googleID;
+    User.findOneAndUpdate( { 'googleID':googleID, 'trips.tripName':tripName },
+                  { $push : { 'trips.$.pois': req.body } },
                   { new: true },
       function(err, user) {
         if(err) {
