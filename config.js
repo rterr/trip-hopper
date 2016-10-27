@@ -7,7 +7,7 @@ module.exports = {
     'callbackURL'   : 'http://localhost:8080/auth/google/callback'
   },
   'mongoDB' : {
-  	'dbPath'				: 'mongodb://shay-kennedy:phoenix09@ds011732.mlab.com:11732/devdb'
+  	'dbPath'				: 'mongodb://bfranzoi:Cubswin2016@ds035177.mlab.com:35177/trip-hopper'
   }
 
 };

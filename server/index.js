@@ -39,36 +39,10 @@ app.get("/", function(req, res){
   res.send("Hello World");
 })
 
-app.get("/trips", function(req, res){
-  Trip.find(function(err, user) {
-        if (err) {
-            return res.sendStatus(500);
-        }
-        res.send(user);
-
-    });
-});
-
-app.post('/trips', jsonParser, function(req, res) {
-    if (!req.body.username){
-        return res.status(422).json({message: 'Missing field: tripname'})
-    }
-     if (typeof req.body.username !== 'string'){
-        return res.status(422).json({message: 'Incorrect field type: tripname'})
-    }
-    User.create({
-        name: req.body.name
-    }, function(err, user) {
-        if (err) {
-            return res.sendStatus(500);
-        }
-        res.status(201).location('/trips/'+trip._id).json({});
-    });
-});
 
 
 //User model schema
-var User = require('./models/users');
+var User = require('./models/user');
 
 try {
   var config = require('../config');
@@ -125,6 +99,7 @@ app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
+
 
 // Bearer Strategy
 passport.use(new BearerStrategy(
