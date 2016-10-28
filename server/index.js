@@ -41,6 +41,10 @@ app.get("/", function(req, res){
   res.send("Hello World");
 })
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7f5dff637193e159f0b82956f6c2ba8967fa6c79
 //User model schema
 var User = require('./models/users');
 

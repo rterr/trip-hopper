@@ -67,8 +67,8 @@ var fetchUser = function() {
 var poiSearch = function(searchTerm, location) {
   return function(dispatch) {
     var location = location;
-    var searchTerm = searchTerm;
-    var url = `/api/${searchTerm}/${location}`;
+    var term = searchTerm;
+    var url = `/api/${term}/${location}`;
     return fetch(url)
     .then(function(response) {
       if (response.status < 200 || response.status >= 300) {
@@ -95,8 +95,8 @@ var poiSearch = function(searchTerm, location) {
 var addTrip = function(props) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-    var userId = props.userId;
-    var url = `/user/${userId}`;
+    var googleID = props.userId;
+    var url = `/user/${googleID}`;
   return fetch(url,
   {
     method: 'put',
@@ -144,9 +144,9 @@ var addTrip = function(props) {
 var addPoi = function(props) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-    var userId = props.userId;
+    var googleID = props.userId;
     var tripName = props.tripName;
-    var url = `/user/trips/${userId}/${tripName}`;
+    var url = `/user/trips/${googleID}/${tripName}`;
   return fetch(url,
   {
     method: 'put',
