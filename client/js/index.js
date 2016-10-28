@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+// import 'babel-polyfill';
+var Yelp = require('yelp');
+
+>>>>>>> 7f5dff637193e159f0b82956f6c2ba8967fa6c79
 var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
@@ -56,3 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
     		routes,
     	document.getElementById('app'));
 });
+
+
+console.log(`Client running in ${process.env.NODE_ENV} mode`);
