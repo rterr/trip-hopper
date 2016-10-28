@@ -31,27 +31,21 @@ var TripSaveLoad = React.createClass({
   },
 
   render: function(){
-    if (this.state.viewMode == false){
-    return (
-    <div>
-      <input type="button" name="save" value="Save Trip" />   <input onClick={this.viewTrips} type="button" name="load" value="View Saved Trips/Load" />
-    </div>)}
-
-    else {
       return (<div>
         <div>
           <input type="button" name="save" value="Save Trip" />   <input onClick={this.viewTrips} type="button" name="load" value="View Saved Trips/Load" />
         </div>
-        <div className="saved-display">
+        {this.state.viewMode && <div className="saved-display">
           {this.state.dummyTrip.map((trip) =>
           {return <div className="saved-trips">
               <div className="trip-name">{trip.name}</div>
               <div className="trip-location">{trip.location}</div>
               <input type="button" name="load" value="Load" onClick={this.loadTrip} />
           </div>})}
-        </div>
+        </div>}
       </div>)
-    }
+
+
   }
 });
 
