@@ -1,17 +1,19 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
-//var actions = require('../actions');
+var actions = require('./redux/actions');
 
-var SearchInput = require('./client/js/searchInput');
-var SearchResults = require('./client/js/searchResults');
+var SearchInput = require('./searchInput');
+var SearchResults = require('./searchResults');
 
 var SearchModule = React.createClass({
+  
   render: function(){
+    return (
     <div className="search-module">
       <SearchInput />
       <SearchResults />
-    </div>
+    </div> );
   }
 });
 
