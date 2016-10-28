@@ -18,7 +18,7 @@ var yelp = new Yelp({
   consumer_key: process.env.consumer_key,
   consumer_secret: process.env.consumer_secret,
   token: process.env.token,
-  token_secret: process.env.token_secret,
+  token_secret: process.env.token_secret
 });
 
 const HOST = process.env.HOST;
@@ -92,7 +92,7 @@ app.get('/auth/google/callback',
   function(req, res) {
     console.log(req.user.accessToken)
     res.cookie('accessToken', req.user.accessToken, {expires: 0});
-    res.redirect('/');
+    res.redirect('/#/planner');
   }
 );
 //Is this all that we need?

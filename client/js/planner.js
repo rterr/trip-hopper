@@ -8,11 +8,11 @@ var TripModule = require('./tripModule');
 
 var Planner = React.createClass({
 
-componentDidMount: function() {
+componentWillMount: function() {
   	this.props.dispatch(actions.fetchUser());
   },
 
-render: function() {
+render: function(props) {
     return (
         <div>
           <SearchModule />
@@ -24,7 +24,9 @@ render: function() {
 
 var mapStateToProps = function(state, props) {
     return {
-        null:null
+      googleID: state.googleID,
+      trips: state.trips,
+      searchResults: state.searchResults
     };
 };
 

@@ -15,12 +15,15 @@ var SearchInput = React.createClass({
   },
 
   submitSearch: function(event){
+    event.preventDefault();
     var searchText = this.refs.inputText.value;
     var searchLocation = this.refs.inputLocation.value;
+    console.log(searchText, searchLocation)
     this.props.dispatch(actions.poiSearch(searchText, searchLocation));
+    console.log(this.props.searchResults)
   },
 
-  render: function(){
+  render: function(props){
     return (
       <div>
     <form onSubmit={this.submitSearch}>
@@ -43,7 +46,9 @@ var SearchInput = React.createClass({
 
 var mapStateToProps = function(state, props) {
     return {
-      null:null
+      googleID: state.googleID,
+      trips: state.trips,
+      searchResults: state.searchResults
     };
 };
 

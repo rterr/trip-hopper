@@ -2,42 +2,52 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
+import {bindActionCreators} from 'redux';
 
 var SearchResults = React.createClass({
-  getInitialState: function(){
-      return ({
-         dummySearch: [
-          {name: "Place1", location: "CA", desc: "eat"},
-          {name: "Place2", location: "CA", desc: "sleep"},
-          {name: "Place3", location: "CA", desc: "cool things"}
-         ]
-      });
+  componentDidMount: function() {
+    this.props.dispatch(actions.fetchUser());
   },
 
-  addPoi: function(event){
-    this.props.dispatch(actions.addPoi());
+  addPoi: function(key){
+    console.log(key)
+    this.props.dispatch(actions.addPoi(key));
   },
 
-  render: function(){
+  render: function(props){
+    console.log(this.props)
+
     return (
-    <div className="search-results">
-    {this.state.dummySearch.map((poi) =>
-    {return <div className="search-poi">
+    <div>{this.props.searchResults && <div className="search-results">
+
+    {this.props.searchResults.map((poi) =>
+    {
+      return <div className="search-poi">
         <div className="poi-name">{poi.name}</div>
-        <div className="poi-location">{poi.location}</div>
+        <div className="poi-location">{poi.location.display_address}</div>
         <div className="poi-desc">
-            {poi.desc}
+            {poi.rating}
         </div>
         <input type="button" name="add" value="Add" onClick={this.addPoi} />
     </div>})}
-    </div>)
+    </div>}
+  </div>)
   }
 });
 
 var mapStateToProps = function(state, props) {
-    return {null:null
+    return {
+      googleID: state.googleID,
+      trips: state.trips,
+      searchResults: state.searchResults
     };
 };
+
+
+// function mapDispatchToProps(dispatch) {
+//     return bindActionCreators({SearchResults: searchResults}, dispatch)
+//   }
+
 
 var Container = connect(mapStateToProps)(SearchResults);
 

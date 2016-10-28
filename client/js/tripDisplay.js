@@ -19,15 +19,15 @@ var TripDisplay = React.createClass({
 
   },
 
-  render: function(){
+  render: function(props){
     return(
     <div className="trip-display">
-      {this.state.dummyPoi.map((poi) =>
+      {this.props.trips[0].pois.map((poidata) =>
       {return <div className="trip-poi">
-          <div className="poi-name">{poi.name}</div>
-          <div className="poi-location">{poi.location}</div>
+          <div className="poi-name">{poidata.name}</div>
+          <div className="poi-location">{poidata.location.display_address}</div>
           <div className="poi-desc">
-              {poi.desc}
+              {poidata.rating}
           </div>
           <input type="button" name="edit" value="Edit" onClick={this.editPoi} />
       </div>})}
@@ -36,7 +36,10 @@ var TripDisplay = React.createClass({
 });
 
 var mapStateToProps = function(state, props) {
-    return {null:null
+    return {
+      googleID: state.googleID,
+      trips: state.trips,
+      searchResults: state.searchResults
     };
 };
 

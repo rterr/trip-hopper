@@ -30,16 +30,16 @@ var TripSaveLoad = React.createClass({
     });
   },
 
-  render: function(){
+  render: function(props){
       return (<div>
         <div>
           <input type="button" name="save" value="Save Trip" />   <input onClick={this.viewTrips} type="button" name="load" value="View Saved Trips/Load" />
         </div>
         {this.state.viewMode && <div className="saved-display">
-          {this.state.dummyTrip.map((trip) =>
+          {this.props.trips.map((trip) =>
           {return <div className="saved-trips">
-              <div className="trip-name">{trip.name}</div>
-              <div className="trip-location">{trip.location}</div>
+              <div className="trip-name">{trip.tripName}</div>
+              <div className="trip-location">{trip.pois.location}</div>
               <input type="button" name="load" value="Load" onClick={this.loadTrip} />
           </div>})}
         </div>}
@@ -50,7 +50,10 @@ var TripSaveLoad = React.createClass({
 });
 
 var mapStateToProps = function(state, props) {
-    return {null:null
+    return {
+      googleID: state.googleID,
+      trips: state.trips,
+      searchResults: state.searchResults
     };
 };
 

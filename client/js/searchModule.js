@@ -7,8 +7,11 @@ var SearchInput = require('./searchInput');
 var SearchResults = require('./searchResults');
 
 var SearchModule = React.createClass({
-  
-  render: function(){
+  componentDidMount: function(){
+    this.props.dispatch(actions.fetchUser());
+  },
+
+  render: function(props){
     return (
     <div className="search-module">
       <SearchInput />
@@ -19,7 +22,9 @@ var SearchModule = React.createClass({
 
 var mapStateToProps = function(state, props) {
     return {
-      null:null
+      googleID: state.googleID,
+      trips: state.trips,
+      searchResults: state.searchResults
     };
 };
 

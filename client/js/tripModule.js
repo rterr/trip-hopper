@@ -8,7 +8,7 @@ var TripSaveLoad = require('./tripSaveLoad');
 var TripTitle = require('./tripTitle');
 
 var TripModule = React.createClass({
-  render: function(){
+  render: function(props){
     return (
     <div className="trip-module">
       <TripTitle />
@@ -20,7 +20,9 @@ var TripModule = React.createClass({
 
 var mapStateToProps = function(state, props) {
     return {
-      null:null
+      googleID: state.googleID,
+      trips: state.trips,
+      searchResults: state.searchResults
     };
 };
 
