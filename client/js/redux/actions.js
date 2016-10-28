@@ -41,11 +41,9 @@ var fetchUser = function() {
   	var headers = new Headers({
   		Authorization: 'bearer ' + token
   	});
-<<<<<<< HEAD
-    var url = 'http://localhost:8080/user';
-=======
+
     var url = '/user';
->>>>>>> 3c6bba0c5abfc163cce3dbf50018a10d13164b66
+
     return fetch(url, {headers: headers}).then(function(response) {
       if (response.status < 200 || response.status >= 300) {
         var error = new Error(response.statusText);
@@ -71,13 +69,9 @@ var fetchUser = function() {
 var poiSearch = function(searchTerm, location) {
   return function(dispatch) {
     var location = location;
-<<<<<<< HEAD
-    var searchTerm = searchTerm;
-    var url = `http://localhost:8080/api/${searchTerm}/${location}`;
-=======
     var term = searchTerm;
     var url = `/api/${term}/${location}`;
->>>>>>> 3c6bba0c5abfc163cce3dbf50018a10d13164b66
+
     return fetch(url)
     .then(function(response) {
       if (response.status < 200 || response.status >= 300) {
@@ -100,28 +94,19 @@ var poiSearch = function(searchTerm, location) {
   }
 };
 
-// PUT request to add trip 
+// PUT request to add trip
 var addTrip = function(props) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-<<<<<<< HEAD
-    var userId = props.userId;
-    var url = `http://localhost:8080/user/${userId}`;
-=======
     var googleID = props.userId;
     var url = `/user/${googleID}`;
->>>>>>> 3c6bba0c5abfc163cce3dbf50018a10d13164b66
   return fetch(url,
   {
     method: 'put',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
       'tripName': props.tripName,
-<<<<<<< HEAD
-      'poi': {
-=======
       'pois': [{
->>>>>>> 3c6bba0c5abfc163cce3dbf50018a10d13164b66
         'name': props.poi.name,
         'location': props.poi.location.display_address,
         'coordinate': props.poi.location.coordinate,
@@ -134,11 +119,7 @@ var addTrip = function(props) {
         'rating_img_url_small': props.poi.rating_img_url_small,
         'display_phone': props.poi.display_phone,
         'categories': props.poi.categories
-<<<<<<< HEAD
-      }
-=======
       }]
->>>>>>> 3c6bba0c5abfc163cce3dbf50018a10d13164b66
     })
   }
     ).then(function(response) {
@@ -162,40 +143,18 @@ var addTrip = function(props) {
   }
 };
 
-// PUT request to add POI 
+// PUT request to add POI
 var addPoi = function(props) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-<<<<<<< HEAD
-    var userId = props.userId;
-    var tripName = props.tripName;
-    var url = `http://localhost:8080/user/trips/${userId}/${tripName}`;
-=======
     var googleID = props.userId;
     var tripName = props.tripName;
     var url = `/user/trips/${googleID}/${tripName}`;
->>>>>>> 3c6bba0c5abfc163cce3dbf50018a10d13164b66
   return fetch(url,
   {
     method: 'put',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
-<<<<<<< HEAD
-      'poi': {
-        'name': props.poi.name,
-        'location': props.poi.location.display_address,
-        'coordinate': props.poi.location.coordinate,
-        'id': props.poi.id,
-        'url': props.poi.url,
-        'image_url': props.poi.image_url,
-        'rating': props.poi.rating,
-        'review_count': props.poi.review_count,
-        'rating_img_url': props.poi.rating_img_url,
-        'rating_img_url_small': props.poi.rating_img_url_small,
-        'display_phone': props.poi.display_phone,
-        'categories': props.poi.categories
-      }
-=======
       'name': props.poi.name,
       'location': props.poi.location.display_address,
       'coordinate': props.poi.location.coordinate,
@@ -208,7 +167,6 @@ var addPoi = function(props) {
       'rating_img_url_small': props.poi.rating_img_url_small,
       'display_phone': props.poi.display_phone,
       'categories': props.poi.categories
->>>>>>> 3c6bba0c5abfc163cce3dbf50018a10d13164b66
     })
   }
     ).then(function(response) {
