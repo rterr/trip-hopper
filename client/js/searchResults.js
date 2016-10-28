@@ -1,26 +1,36 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
-//var actions = require('../actions');
-
-var PoiResult = function(props) {
-    return (
-        <div className="search-poi">
-            <div className="poi-name">{props.name}</div>
-            <img className="poi-location" src={props.location} />
-            <div className="poi-desc">
-                {props.desc}
-            </div>
-        </div>
-    );
-};
+var actions = require('./redux/actions');
 
 var SearchResults = React.createClass({
+  getInitialState: function(){
+      return ({
+         dummySearch: [
+          {name: "Place1", location: "CA", desc: "eat"},
+          {name: "Place2", location: "CA", desc: "sleep"},
+          {name: "Place3", location: "CA", desc: "cool things"}
+         ]
+      });
+  },
+
+  addPoi: function(event){
+    this.props.dispatch(actions.addPoi());
+  },
 
   render: function(){
+    return (
     <div className="search-results">
-      <PoiResult />
-    </div>
+    {this.state.dummySearch.map((poi) =>
+    {return <div className="search-poi">
+        <div className="poi-name">{poi.name}</div>
+        <div className="poi-location">{poi.location}</div>
+        <div className="poi-desc">
+            {poi.desc}
+        </div>
+        <input type="button" name="add" value="Add" onClick={this.addPoi} />
+    </div>})}
+    </div>)
   }
 });
 

@@ -1,0 +1,22 @@
+@import "bourbon/bourbon";
+@import "neat/neat";
+
+#app {
+@include outer-container;
+}
+
+.search-module {
+  @include span-columns(6);
+  border: 2px solid firebrick;
+}
+
+.trip-module {
+  @include span-columns(6)
+  border:2px solid steelblue;
+}
+
+.search-poi, .trip-poi, .saved-trips {
+  border:1px solid gray;
+}
+
+h1 {display:inline-block}
