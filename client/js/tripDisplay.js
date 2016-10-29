@@ -20,6 +20,13 @@ var TripDisplay = React.createClass({
   },
 
   render: function(props){
+    if (!this.props.trips[0]) {
+      return (
+        <div>
+          <p>Enter a trip</p>
+        </div>
+      )
+    }
     return(
     <div className="trip-display">
       {this.props.trips[0].pois.map((poidata) =>

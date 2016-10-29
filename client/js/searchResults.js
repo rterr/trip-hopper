@@ -22,7 +22,7 @@ var SearchResults = React.createClass({
 
     {this.props.searchResults.map((poi) =>
     {
-      return <div className="search-poi">
+      return <div className="search-poi" key={poi.id}>
         <div className="poi-name">{poi.name}</div>
         <div className="poi-location">{poi.location.display_address}</div>
         <div className="poi-desc">
