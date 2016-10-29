@@ -64,9 +64,9 @@ var fetchUser = function() {
 };
 
 // GET request for initial starting point-of-interest (poi)
-var poiSearch = function(searchTerm, location) {
+var poiSearch = function(searchTerm, searchLocation) {
   return function(dispatch) {
-    var location = location;
+    var location = searchLocation;
     var term = searchTerm;
     var url = `/api/${term}/${location}`;
     return fetch(url)
@@ -91,7 +91,7 @@ var poiSearch = function(searchTerm, location) {
   }
 };
 
-// PUT request to add trip 
+// PUT request to add trip
 var addTrip = function(props) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
@@ -140,7 +140,9 @@ var addTrip = function(props) {
   }
 };
 
-// PUT request to add POI 
+
+
+// PUT request to add POI
 var addPoi = function(props) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');

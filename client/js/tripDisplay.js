@@ -1,31 +1,45 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
-//var actions = require('../actions');
+var actions = require('./redux/actions');
 
-var PoiEntry = function(props) {
-    return (
-        <div className="trip-poi">
-            <div className="poi-name">{props.name}</div>
-            <img className="poi-location" src={props.location} />
-            <div className="poi-desc">
-                {props.desc}
-            </div>
-        </div>
-    );
-};
 
 var TripDisplay = React.createClass({
+  getInitialState: function(){
+      return {
+         dummyPoi: [
+          {name: "Zoo", location: "CA", desc: "animals"},
+          {name: "Bar", location: "TX", desc: "get drunk"},
+          {name: "Restuarant", location: "NY", desc: "tasty food"}
+         ]
+      };
+  },
 
-  render: function(){
+  editPoi: function(event){
+
+  },
+
+  render: function(props){
+    return(
     <div className="trip-display">
-      <PoiEntry />
-    </div>
+      {this.props.trips[0].pois.map((poidata) =>
+      {return <div className="trip-poi">
+          <div className="poi-name">{poidata.name}</div>
+          <div className="poi-location">{poidata.location.display_address}</div>
+          <div className="poi-desc">
+              {poidata.rating}
+          </div>
+          <input type="button" name="edit" value="Edit" onClick={this.editPoi} />
+      </div>})}
+    </div>)
   }
 });
 
 var mapStateToProps = function(state, props) {
-    return {null:null
+    return {
+      googleID: state.googleID,
+      trips: state.trips,
+      searchResults: state.searchResults
     };
 };
 
