@@ -10,29 +10,42 @@ var SearchResults = React.createClass({
   },
 
   addPoi: function(key){
-    console.log(key)
+    console.log(key);
     this.props.dispatch(actions.addPoi(key));
   },
 
-  render: function(props){
-    console.log(this.props)
+  addTrip: function(key){
+    var tripName = prompt('Enter trip name');
+    console.log('KEY', key, 'THIS.PROPS', this.props, 'TRIPNAME', tripName);
+    this.props.dispatch(actions.addTrip(key));
+  },
 
-    return (
-    <div>{this.props.searchResults && <div className="search-results">
-
-    {this.props.searchResults.map((poi) =>
-    {
-      return <div className="search-poi" key={poi.id}>
+  showResults: function() {
+    return this.props.searchResults.map( (poi) => {
+      return ( <div className="search-poi" key={poi.id}>
         <div className="poi-name">{poi.name}</div>
         <div className="poi-location">{poi.location.display_address}</div>
-        <div className="poi-desc">
-            {poi.rating}
-        </div>
-        <input type="button" name="add" value="Add" onClick={this.addPoi} />
-    </div>})}
-    </div>}
-  </div>)
+        <div className="poi-desc">{poi.rating}</div>
+        <input type="button" name="add" value="Add To Existing Trip" onClick={this.addPoi} />
+        <input type="button" name="add" value="Start New Trip" onClick={this.addTrip} />
+      </div>
+      )
+    })
+  },
+
+  render: function(props){
+    console.log(this.props);
+    return (
+      <div>
+        {
+          this.props.searchResults && <div className="search-results">
+          {this.showResults()}
+          </div>
+        }
+      </div>
+    )
   }
+
 });
 
 var mapStateToProps = function(state, props) {
