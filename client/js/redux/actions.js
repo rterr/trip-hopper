@@ -144,6 +144,7 @@ var addTrip = function(props) {
 
 // PUT request to add POI
 var addPoi = function(props) {
+  console.log('ACTION PROPS', props);
   return function(dispatch) {
     var token = Cookies.get('accessToken');
     var googleID = props.userId;
