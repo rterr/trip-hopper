@@ -92,30 +92,31 @@ var poiSearch = function(searchTerm, searchLocation) {
 };
 
 // PUT request to add trip
-var addTrip = function(props) {
+var addTrip = function(tripName, poi, googleID) {
+  console.log('ACTION TRIPNAME', tripName);
+  console.log('ACTION POI', poi);
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-    var googleID = props.userId;
     var url = `/user/${googleID}`;
   return fetch(url,
   {
     method: 'put',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
-      'tripName': props.tripName,
+      'tripName': tripName,
       'pois': [{
-        'name': props.poi.name,
-        'location': props.poi.location.display_address,
-        'coordinate': props.poi.location.coordinate,
-        'id': props.poi.id,
-        'url': props.poi.url,
-        'image_url': props.poi.image_url,
-        'rating': props.poi.rating,
-        'review_count': props.poi.review_count,
-        'rating_img_url': props.poi.rating_img_url,
-        'rating_img_url_small': props.poi.rating_img_url_small,
-        'display_phone': props.poi.display_phone,
-        'categories': props.poi.categories
+        'name': poi.poi.name,
+        'location': poi.poi.location.display_address,
+        'coordinate': poi.poi.location.coordinate,
+        'id': poi.poi.id,
+        'url': poi.poi.url,
+        'image_url': poi.poi.image_url,
+        'rating': poi.poi.rating,
+        'review_count': poi.poi.review_count,
+        'rating_img_url': poi.poi.rating_img_url,
+        'rating_img_url_small': poi.poi.rating_img_url_small,
+        'display_phone': poi.poi.display_phone,
+        'categories': poi.poi.categories
       }]
     })
   }
@@ -143,30 +144,28 @@ var addTrip = function(props) {
 
 
 // PUT request to add POI
-var addPoi = function(props) {
-  console.log('ACTION PROPS', props);
+var addPoi = function(tripName, poi, googleID) {
+  console.log('ACTION PROPS', poi);
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-    var googleID = props.userId;
-    var tripName = props.tripName;
     var url = `/user/trips/${googleID}/${tripName}`;
   return fetch(url,
   {
     method: 'put',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
-      'name': props.poi.name,
-      'location': props.poi.location.display_address,
-      'coordinate': props.poi.location.coordinate,
-      'id': props.poi.id,
-      'url': props.poi.url,
-      'image_url': props.poi.image_url,
-      'rating': props.poi.rating,
-      'review_count': props.poi.review_count,
-      'rating_img_url': props.poi.rating_img_url,
-      'rating_img_url_small': props.poi.rating_img_url_small,
-      'display_phone': props.poi.display_phone,
-      'categories': props.poi.categories
+      'name': poi.poi.name,
+      'location': poi.poi.location.display_address,
+      'coordinate': poi.poi.location.coordinate,
+      'id': poi.poi.id,
+      'url': poi.poi.url,
+      'image_url': poi.poi.image_url,
+      'rating': poi.poi.rating,
+      'review_count': poi.poi.review_count,
+      'rating_img_url': poi.poi.rating_img_url,
+      'rating_img_url_small': poi.poi.rating_img_url_small,
+      'display_phone': poi.poi.display_phone,
+      'categories': poi.poi.categories
     })
   }
     ).then(function(response) {
