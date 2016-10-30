@@ -30,7 +30,7 @@ var TripDisplay = React.createClass({
     return(
     <div className="trip-display">
       {this.props.trips[0].pois.map((poidata) =>
-      {return <div className="trip-poi">
+      {return <div key={poidata.id} className="trip-poi">
           <div className="poi-name">{poidata.name}</div>
           <div className="poi-location">{poidata.location.display_address}</div>
           <div className="poi-desc">

@@ -3,11 +3,12 @@ var actions = require('./actions');
 var initialState = {
 	googleID: '105105095864688158123',
 	trips: [
-		{tripName: '',
+		{
+			tripName: '',
 			pois: []}
 		],
 	searchResults: [],
-	activeTrip: 'Movie Trip'
+	activeTrip: 'trip1234'
 };
 
 var reducer = function(state, action) {
