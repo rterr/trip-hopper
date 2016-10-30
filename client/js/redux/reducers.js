@@ -8,7 +8,7 @@ var initialState = {
 			pois: []}
 		],
 	searchResults: [],
-	activeTrip: 'trip1234'
+	activeTrip: 'test1234'
 };
 
 var reducer = function(state, action) {
