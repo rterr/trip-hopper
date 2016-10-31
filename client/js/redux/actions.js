@@ -141,7 +141,39 @@ var addTrip = function(tripName, poi, googleID) {
   }
 };
 
-
+// PUT request to remove entire trip from trips array
+var removeTrip = function(googleID, tripName) {
+  return function(dispatch) {
+    var token = Cookies.get('accessToken');
+    var url = `/user/${googleID}`;
+  return fetch(url,
+  {
+    method: 'put',
+    headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
+    body: JSON.stringify({
+      'tripName': tripName
+    })
+  }
+    ).then(function(response) {
+      if(response.status < 200 || response.status > 300) {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+      }
+      return response.json();
+    })
+    .then(function(response) {
+      return dispatch(
+        fetchUserSuccess(response)
+        );
+    })
+    .catch(function(error) {
+      return dispatch(
+        fetchUserError(error)
+        );
+    });
+  }
+};
 
 // PUT request to add POI
 var addPoi = function(tripName, poi, googleID) {
@@ -189,39 +221,40 @@ var addPoi = function(tripName, poi, googleID) {
   }
 };
 
-// // PUT request to remove favorites from user schema
-// var removeFavorite = function(props) {
-//   return function(dispatch) {
-//     var token = Cookies.get('accessToken');
-//     var url = 'http://localhost:8080/user/favorites/'+props.trail_id;
-//   return fetch(url,
-//   {
-//     method: 'put',
-//     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
-//     body: JSON.stringify({
-//       'googleID': props.userId
-//     })
-//   }
-//     ).then(function(response) {
-//       if(response.status < 200 || response.status > 300) {
-//         var error = new Error(response.statusText);
-//         error.response = response;
-//         throw error;
-//       }
-//       return response.json();
-//     })
-//     .then(function(response) {
-//       return dispatch(
-//         fetchUserSuccess()
-//         );
-//     })
-//     .catch(function(error) {
-//       return dispatch(
-//         fetchUserError(error)
-//         );
-//     });
-//   }
-// };
+// PUT request to remove entire trip from trips array
+var removePoi = function(googleID, tripName, poi) {
+  return function(dispatch) {
+    var token = Cookies.get('accessToken');
+    var url = `/user/trips/${googleID}`;
+  return fetch(url,
+  {
+    method: 'put',
+    headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
+    body: JSON.stringify({
+      'tripName': tripName,
+      'id': poi.id
+    })
+  }
+    ).then(function(response) {
+      if(response.status < 200 || response.status > 300) {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+      }
+      return response.json();
+    })
+    .then(function(response) {
+      return dispatch(
+        fetchUserSuccess(response)
+        );
+    })
+    .catch(function(error) {
+      return dispatch(
+        fetchUserError(error)
+        );
+    });
+  }
+};
 
 exports.fetchUser = fetchUser;
 exports.fetchUserSuccess = fetchUserSuccess;
@@ -236,5 +269,6 @@ exports.FETCH_POI_SUCCESS = FETCH_POI_SUCCESS;
 exports.FETCH_POI_ERROR = FETCH_POI_ERROR;
 
 exports.addTrip = addTrip;
+exports.removeTrip = removeTrip;
 exports.addPoi = addPoi;
-// exports.removeFavorite = removeFavorite;
+exports.removePoi = removePoi;
