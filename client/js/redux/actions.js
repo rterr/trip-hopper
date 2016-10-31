@@ -34,6 +34,14 @@ var fetchPoiError = function(error) {
   };
 };
 
+var SET_ACTIVETRIP = 'SET_ACTIVETRIP';
+var setActiveTrip = function(tripName) {
+  return {
+    type: SET_ACTIVETRIP,
+    tripName: tripName
+  };
+};
+
 // GET request for user info from DB using accessToken
 var fetchUser = function() {
   return function(dispatch) {
@@ -267,6 +275,9 @@ exports.fetchPoiSuccess = fetchPoiSuccess;
 exports.fetchPoiError = fetchPoiError;
 exports.FETCH_POI_SUCCESS = FETCH_POI_SUCCESS;
 exports.FETCH_POI_ERROR = FETCH_POI_ERROR;
+
+exports.setActiveTrip = setActiveTrip;
+exports.SET_ACTIVETRIP = SET_ACTIVETRIP;
 
 exports.addTrip = addTrip;
 exports.removeTrip = removeTrip;

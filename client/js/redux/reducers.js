@@ -23,7 +23,6 @@ var reducer = function(state, action) {
 				googleID: user.googleID,
 				trips: user.trips
 			});
-			console.log
 			return state;
 
 		case action.FETCH_USER_ERROR:
@@ -44,10 +43,14 @@ var reducer = function(state, action) {
 			// console.log('FETCH_POI_ERROR');
 			return state;
 
-		case action.addPoi:
-		console.log(action)
-		
-
+		// Updates activeTrip state
+		case action.SET_ACTIVETRIP:
+			// console.log('SET_ACTIVETRIP');
+			state = Object.assign({}, state, {
+				activeTrip: action.activeTrip
+			});
+			return state;
+	
 	}
 	return state;
 };
