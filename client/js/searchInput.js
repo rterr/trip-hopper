@@ -31,7 +31,7 @@ var SearchInput = React.createClass({
     <input type="text" placeholder="Search for..." name="searchText" id="searchText" className="text" autoComplete="off" required ref="inputText" />
     <input type="submit" id="inputButton" className="button btn btn-primary" name="submit" value="Search"/>
   </form>
-  <div>
+  {/*<div>
    <select onChange={this.optionChange} value={this.state.optionSelected}>
       <option value="__">Choose an option...</option>
       <option value="restaurants">Restaurants</option>
@@ -39,7 +39,7 @@ var SearchInput = React.createClass({
       <option value="hotels">Hotels</option>
       <option value="entertainment">entertainment</option>
     </select> in Location...
-  </div>
+  </div>*/}
   </div>)
   }
 });
