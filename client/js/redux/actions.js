@@ -20,6 +20,7 @@ var fetchUserError = function(error) {
 
 var FETCH_POI_SUCCESS = 'FETCH_POI_SUCCESS';
 var fetchPoiSuccess = function(searchResults) {
+  console.log('Search results action hit!', searchResults);
   return {
     type: FETCH_POI_SUCCESS,
     searchResults: searchResults
@@ -36,6 +37,7 @@ var fetchPoiError = function(error) {
 
 var SET_ACTIVETRIP = 'SET_ACTIVETRIP';
 var setActiveTrip = function(tripName) {
+  console.log('ActiveTrip action hit!', tripName);
   return {
     type: SET_ACTIVETRIP,
     tripName: tripName
