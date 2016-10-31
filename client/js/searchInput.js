@@ -18,9 +18,9 @@ var SearchInput = React.createClass({
     event.preventDefault();
     var searchText = this.refs.inputText.value;
     var searchLocation = this.refs.inputLocation.value;
-    console.log(searchText, searchLocation)
+    // console.log(searchText, searchLocation)
     this.props.dispatch(actions.poiSearch(searchText, searchLocation));
-    console.log(this.props.searchResults)
+    // console.log(this.props.searchResults)
   },
 
   render: function(props){
