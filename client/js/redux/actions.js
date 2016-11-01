@@ -4,6 +4,7 @@ var Cookies = require("js-cookie");
 
 var FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
 var fetchUserSuccess = function(user) {
+  console.log(user)
   return {
     type: FETCH_USER_SUCCESS,
     user: user
@@ -98,7 +99,8 @@ var addTrip = function(tripName, poi, googleID) {
   console.log('ACTION POI', poi);
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-    var url = `/user/${googleID}`;
+    var activeTrip = tripName
+    var url = `/user/${googleID}/${activeTrip}`;
   return fetch(url,
   {
     method: 'put',

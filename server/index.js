@@ -150,10 +150,11 @@ app.get('/api/:term/:location', function(req, res){
 
 
 // PUT: Add to trips (avoids duplicates)
-app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
+app.put('/user/:googleID/:activeTrip', passport.authenticate('bearer', {session: false}),
   function(req, res) {
     User.findOneAndUpdate({ 'googleID':req.user.googleID },
                   { $push: { 'trips':req.body } },
+                  // { $set: { 'activeTrip':req.params.activeTrip} },
                   {new: true},
       function(err, user) {
         if(err) {
@@ -163,7 +164,23 @@ app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
       });
   });
 
-// PUT: Remove from trips
+//remove entire trip from trips array
+app.put('/user/removeTrip/:googleID', passport.authenticate('bearer', {session: false}),
+  function(req, res) {
+    console.log(req.body)
+    User.findOneAndUpdate({ 'googleID':req.user.googleID },
+                  { $pull: { 'trips':{'tripName':req.body.tripName} } },
+                  {new: true},
+      function(err, user) {
+        if(err) {
+          return res.send(err)
+        }
+        return res.json(user);
+      });
+  });
+
+
+// PUT: add pois to existing trips
 app.put('/user/trips/:googleID/:tripName', passport.authenticate('bearer', {session: false}),
   function(req, res) {
     var tripName = req.params.tripName;
