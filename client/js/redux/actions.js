@@ -180,6 +180,7 @@ var removeTrip = function(googleID, tripName) {
 
 // PUT request to add POI
 var addPoi = function(tripName, poi, googleID) {
+  console.log('ACTION TRIPNAME: ', tripName)
   console.log('ACTION PROPS', poi);
   return function(dispatch) {
     var token = Cookies.get('accessToken');
@@ -228,7 +229,7 @@ var addPoi = function(tripName, poi, googleID) {
 var removePoi = function(googleID, tripName, poi) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-    var url = `/user/trips/removePoi/${googleID}`;
+    var url = `/user/poi/removePoi/${googleID}`;
   return fetch(url,
   {
     method: 'put',
