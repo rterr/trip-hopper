@@ -25,6 +25,7 @@ var TripTitle = React.createClass({
 
   render: function(props){
     if (this.state.renameOn == false){
+      console.log('this.props.trips: ',this.props.trips)
       return (
         <div>
           <h1>{this.props.trips[0].tripName}</h1>
@@ -34,7 +35,7 @@ var TripTitle = React.createClass({
     else {
       return (<div>
         <form onSubmit={this.renameTrip}>
-          <input type="text" value="Type new title..." name="renameTitle" id="renameTitle" className="rename-input" autoComplete="off" required ref="renameTitle" />
+          <input type="text" placeholder="Type new title..." name="renameTitle" id="renameTitle" className="rename-input" autoComplete="off" required ref="renameTitle" />
           <input type="submit" id="renameButton" className="button btn btn-primary" name="submit" value="Submit"/>
         </form>
       </div>)

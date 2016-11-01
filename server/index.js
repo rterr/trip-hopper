@@ -69,7 +69,8 @@ function(accessToken, refreshToken, profile, done) {
         User.create({
           googleID: profile.id,
           accessToken: accessToken,
-          trips: []
+          trips: [],
+          activeTrip: null
         }, function(err, user) {
           return done(err, user);
         });
@@ -177,6 +178,20 @@ app.put('/user/trips/:googleID/:tripName', passport.authenticate('bearer', {sess
         return res.json(user);
       });
   });
+
+//changes status of activeTrip
+  app.put('/user/:activeTrip', passport.authenticate('bearer', {session: false}),
+    function(req, res) {
+      User.findOneAndUpdate({ 'googleID':req.user.googleID },
+                    { $set: { 'activeTrip':req.params.activeTrip } },
+                    {new: true},
+        function(err, user) {
+          if(err) {
+            return res.send(err)
+          }
+          return res.json(user);
+        });
+    });
 
 
 function runServer() {
