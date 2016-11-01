@@ -21,7 +21,8 @@ var reducer = function(state, action) {
 			var user = action.user[0];
 			var newState = Object.assign({}, state, {
 				googleID: user.googleID,
-				trips: user.trips
+				trips: user.trips,
+				activeTrip: user.activeTrip
 			});
 			return newState;
 
