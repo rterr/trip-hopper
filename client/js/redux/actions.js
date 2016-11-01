@@ -155,7 +155,7 @@ var addTrip = function(tripName, poi, googleID) {
 var removeTrip = function(googleID, tripName) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-    var url = `/user/${googleID}`;
+    var url = `/user/removeTrip/${googleID}`;
   return fetch(url,
   {
     method: 'put',
@@ -235,7 +235,7 @@ var addPoi = function(tripName, poi, googleID) {
 var removePoi = function(googleID, tripName, poi) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-    var url = `/user/trips/${googleID}`;
+    var url = `/user/trips/removePoi/${googleID}`;
   return fetch(url,
   {
     method: 'put',
