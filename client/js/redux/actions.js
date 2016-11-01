@@ -3,7 +3,7 @@ var Cookies = require("js-cookie");
 
 
 var FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
-var fetchUserSuccess = function(user, score, answer) {
+var fetchUserSuccess = function(user) {
   return {
     type: FETCH_USER_SUCCESS,
     user: user
@@ -32,15 +32,6 @@ var fetchPoiError = function(error) {
   return {
     type: FETCH_POI_ERROR,
     error: error
-  };
-};
-
-var SET_ACTIVETRIP = 'SET_ACTIVETRIP';
-var setActiveTrip = function(tripName) {
-  console.log('ActiveTrip action hit!', tripName);
-  return {
-    type: SET_ACTIVETRIP,
-    tripName: tripName
   };
 };
 
@@ -266,6 +257,37 @@ var removePoi = function(googleID, tripName, poi) {
   }
 };
 
+// PUT request to change activeTrip
+var setActiveTrip = function(activeTrip) {
+  return function(dispatch) {
+    var token = Cookies.get('accessToken');
+    var url = `/user/${activeTrip}`;
+  return fetch(url,
+  {
+    method: 'put',
+    headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token}
+  }
+    ).then(function(response) {
+      if(response.status < 200 || response.status > 300) {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+      }
+      return response.json();
+    })
+    .then(function(response) {
+      return dispatch(
+        fetchUserSuccess(response)
+        );
+    })
+    .catch(function(error) {
+      return dispatch(
+        fetchUserError(error)
+        );
+    });
+  }
+};
+
 exports.fetchUser = fetchUser;
 exports.fetchUserSuccess = fetchUserSuccess;
 exports.fetchUserError = fetchUserError;
@@ -279,7 +301,6 @@ exports.FETCH_POI_SUCCESS = FETCH_POI_SUCCESS;
 exports.FETCH_POI_ERROR = FETCH_POI_ERROR;
 
 exports.setActiveTrip = setActiveTrip;
-exports.SET_ACTIVETRIP = SET_ACTIVETRIP;
 
 exports.addTrip = addTrip;
 exports.removeTrip = removeTrip;
