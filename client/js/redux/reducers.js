@@ -8,7 +8,7 @@ var initialState = {
 			pois: []}
 		],
 	searchResults: [],
-	activeTrip: 'test1234'
+	activeTrip: null
 };
 
 var reducer = function(state, action) {
@@ -19,14 +19,13 @@ var reducer = function(state, action) {
 		case actions.FETCH_USER_SUCCESS:
 			// console.log('FETCH_USER_SUCCESS');
 			var user = action.user[0];
-			state = Object.assign({}, state, {
+			var newState = Object.assign({}, state, {
 				googleID: user.googleID,
 				trips: user.trips
 			});
-			console.log
-			return state;
+			return newState;
 
-		case action.FETCH_USER_ERROR:
+		case actions.FETCH_USER_ERROR:
 			// console.log('FETCH_USER_ERROR');
 			return state;
 
@@ -35,19 +34,24 @@ var reducer = function(state, action) {
 			// console.log('FETCH_POI_SUCCESS');
 			console.log("FETCH_POI_SUCCESS")
 			var searchRes = action.searchResults.businesses;
-			state = Object.assign({}, state, {
+			var newState = Object.assign({}, state, {
 				searchResults: searchRes
 			});
-			return state;
+			return newState;
 
-		case action.FETCH_POI_ERROR:
+		case actions.FETCH_POI_ERROR:
 			// console.log('FETCH_POI_ERROR');
 			return state;
 
-		case action.addPoi:
-		console.log(action)
-		
-
+		// Updates activeTrip state
+		case actions.SET_ACTIVETRIP:
+			console.log('SET_ACTIVETRIP');
+			var newState = Object.assign({}, state, {
+				activeTrip: action.tripName
+			});
+			console.log('SET ACTIVE TRIP STATE', state);
+			return newState;
+	
 	}
 	return state;
 };
