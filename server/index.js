@@ -183,6 +183,7 @@ app.put('/user/removeTrip/:googleID', passport.authenticate('bearer', {session: 
 // PUT: add pois to existing trips
 app.put('/user/trips/:googleID/:tripName', passport.authenticate('bearer', {session: false}),
   function(req, res) {
+    console.log('wrong one!')
     var tripName = req.params.tripName;
     var googleID = req.user.googleID;
     User.findOneAndUpdate( { 'googleID':googleID, 'trips.tripName':tripName },
@@ -195,6 +196,25 @@ app.put('/user/trips/:googleID/:tripName', passport.authenticate('bearer', {sess
         return res.json(user);
       });
   });
+
+  app.put('/user/poi/removePoi/:googleID', passport.authenticate('bearer', {session: false}),
+    function(req, res) {
+      console.log('testing')
+      var tripName = req.body.tripName;
+      var googleID = req.user.googleID;
+      var poiID = req.body.id
+      console.log('poiID: ',poiID)
+      console.log('tripName: ',tripName)
+      User.findOneAndUpdate( { 'googleID':googleID, 'trips.tripName':tripName},
+                    { $pull : { 'pois':{ 'id': req.body.id } } },
+                    { new: true },
+        function(err, user) {
+          if(err) {
+            return res.send(err)
+          }
+          return res.json(user);
+        });
+    });
 
 //changes status of activeTrip
   app.put('/user/:activeTrip', passport.authenticate('bearer', {session: false}),
