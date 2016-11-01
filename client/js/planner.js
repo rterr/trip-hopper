@@ -14,10 +14,14 @@ componentWillMount: function() {
 
 render: function(props) {
     return (
+      <div>
+      <h1>Trip Hopper</h1>
+      <p>Powered by <a href="http://www.yelp.com">Yelp</a></p>
         <div>
           <SearchModule />
           <TripModule />
         </div>
+      </div>
     )
 }
 });

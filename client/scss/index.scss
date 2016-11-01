@@ -1,18 +1,31 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 
+$gtMobile: min-width 40em 12 !default;
+
 #app {
 @include outer-container;
 }
 
+body {
+  font-family:sans-serif;
+}
+
 .search-module {
-  @include span-columns(6);
+  @include span-columns(12);
   border: 2px solid firebrick;
+
+  @include media($gtMobile){
+    @include span-columns(6);
+  }
 }
 
 .trip-module {
-  @include span-columns(6)
+  @include span-columns(12)
   border:2px solid steelblue;
+
+  @include media($gtMobile){
+    @include span-columns(6);}
 }
 
 .search-poi, .trip-poi, .saved-trips {
@@ -21,6 +34,43 @@
 
 .rename-input {
   font-size:2em;
+}
+
+.poi-img {
+	display:inline-block;
+	vertical-align:top;
+  float:left;
+  margin-right:0.5em;
+  img {
+  	background-color:lightgray;
+  	border-radius:0.75em;
+  	width:75px;
+  }
+}
+
+.poi-entry {
+  @include clearfix;
+}
+
+.poi-name {
+	font-size:1.25em;
+	font-weight:bold;
+	font-family:sans-serif;
+}
+
+.poi-name a {
+	color:#463d66;
+  line-height:2em;
+}
+
+.poi-rating {
+	font-size:1em;
+  background-color:slateblue;
+	color:white;
+	padding:0.25em;
+	border-radius:0.25em;
+	margin-left:0.25em;
+	text-shadow: 1px 1px 1px slategray;
 }
 
 h1 {display:inline-block}
