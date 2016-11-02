@@ -2,16 +2,12 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
+var TripListDetail = require('./tripListDetail');
 
 var TripSaveLoad = React.createClass({
   getInitialState: function(event){
     return({
-      viewMode: false,
-      dummyTrip: [
-       {name: "West Coast Trip", location: "CA"},
-       {name: "Tex Mex", location: "TX"},
-       {name: "Big Apple", location: "NY"}
-   ]})
+      viewMode: false})
  },
 
   saveTrip: function(event){
@@ -31,17 +27,17 @@ var TripSaveLoad = React.createClass({
   },
 
   render: function(props){
-      return (<div>
+    var savedTrips = this.props.trips.map((trip) => {
+      return <TripListDetail key={trip.tripName} trip={trip} />
+    });
+
+      return (
         <div>
-          <input type="button" name="save" value="Save Trip" />   <input onClick={this.viewTrips} type="button" name="load" value="View Saved Trips/Load" />
+        <div>
+          <input onClick={this.viewTrips} type="button" name="load" value="View Saved Trips/Load" />
         </div>
         {this.state.viewMode && <div className="saved-display">
-          {this.props.trips.map((trip) =>
-          {return <div className="saved-trips">
-              <div className="trip-name">{trip.tripName}</div>
-              <div className="trip-location">{trip.pois.location}</div>
-              <input type="button" name="load" value="Load" onClick={this.loadTrip} />
-          </div>})}
+          {savedTrips}
         </div>}
       </div>)
 

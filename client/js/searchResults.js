@@ -10,7 +10,6 @@ var SearchResults = React.createClass({
   },
 
   render: function(props){
-    console.log(this.props);
     var searchResultsDetail = this.props.searchResults.map((poi) => {
       return <SearchDetail key={poi.id} poi={poi} />
     });
