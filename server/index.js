@@ -169,7 +169,8 @@ app.delete('/user/removeTrip/:googleID', passport.authenticate('bearer', {sessio
   function(req, res) {
     console.log(req.body)
     User.findOneAndUpdate({ 'googleID':req.user.googleID },
-                  { $pull: { 'trips':{'tripName':req.body.tripName} } },
+                  { $pull: { 'trips':{'tripName':req.body.tripName} },
+                    $set: {'activeTrip': null} },
                   {new: true},
       function(err, user) {
         if(err) {
