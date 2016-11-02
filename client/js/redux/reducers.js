@@ -43,32 +43,6 @@ var reducer = function(state, action) {
 			// console.log('FETCH_POI_ERROR');
 			return state;
 
-		// Updates activeTrip state
-		case actions.SET_ACTIVETRIP:
-			console.log('SET_ACTIVETRIP');
-			var newState = Object.assign({}, state, {
-				activeTrip: action.tripName
-			});
-			console.log('SET ACTIVE TRIP STATE', state);
-			return newState;
-	
-		// Updates state upon removing trip success
-		case actions.REMOVE_TRIP_SUCCESS:
-			console.log('REMOVE_TRIP_SUCCESS');
-			console.log('ACTION', action);
-			var user = action.user;
-			var newState = Object.assign({}, state, {
-				googleID: user.googleID,
-				trips: user.trips,
-				activeTrip: null
-			});
-			console.log('NEWSTATE', newState);
-			return newState;
-
-		case actions.REMOVE_TRIP_ERROR:
-			// console.log('REMOVE_TRIP_ERROR');
-			return state;	
-
 	}
 	return state;
 };
