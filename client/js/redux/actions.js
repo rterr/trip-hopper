@@ -4,7 +4,7 @@ var Cookies = require("js-cookie");
 
 var FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
 var fetchUserSuccess = function(user) {
-  console.log(user)
+
   return {
     type: FETCH_USER_SUCCESS,
     user: user
@@ -146,6 +146,8 @@ var addTrip = function(tripName, poi, googleID) {
 
 // PUT request to remove entire trip from trips array
 var removeTrip = function(googleID, tripName) {
+  console.log("REMOVETRIP action hit!")
+  console.log("REMOVETRIP ", googleID, tripName)
   return function(dispatch) {
     var token = Cookies.get('accessToken');
     var url = `/user/removeTrip/${googleID}`;
@@ -227,6 +229,8 @@ var addPoi = function(tripName, poi, googleID) {
 
 // PUT request to remove entire trip from trips array
 var removePoi = function(googleID, tripName, poi) {
+  console.log("REMOVEPOI action hit!")
+  console.log("REMOVEPOI ", googleID, tripName, poi.id)
   return function(dispatch) {
     var token = Cookies.get('accessToken');
     var url = `/user/poi/removePoi/${googleID}`;
