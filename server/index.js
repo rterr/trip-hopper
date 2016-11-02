@@ -205,8 +205,8 @@ app.put('/user/trips/:googleID/:tripName', passport.authenticate('bearer', {sess
       var poiID = req.body.id
       console.log('poiID: ',poiID)
       console.log('tripName: ',tripName)
-      User.findOneAndUpdate( { 'googleID':googleID },
-                    { $pull : { 'trips.0.pois':{ 'id': poiID } } },
+      User.findOneAndUpdate( { 'googleID':googleID, 'trips.tripName': tripName },
+                    { $pull : { 'trips.$.pois':{ 'id': poiID } } },
                     { new: true },
         function(err, user) {
           if(err) {
