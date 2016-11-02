@@ -5,13 +5,12 @@ var actions = require('./redux/actions');
 
 var TripDisplay = require('./tripDisplay');
 var TripSaveLoad = require('./tripSaveLoad');
-var TripTitle = require('./tripTitle');
+
 
 var TripModule = React.createClass({
   render: function(props){
     return (
     <div className="trip-module">
-      <TripTitle />
       <TripDisplay />
       <TripSaveLoad />
     </div>)

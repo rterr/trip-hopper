@@ -6,6 +6,12 @@ var TripDisplayDetail = require('./tripDisplayDetail');
 
 
 var TripDisplay = React.createClass({
+  deleteTrip: function(){
+      console.log("deleteTrip hit!");
+    this.props.dispatch(actions.removeTrip(this.props.googleID, this.props.activeTrip));
+    this.props.dispatch(actions.fetchUser());
+  },
+
   render: function(props){
         if (!this.props.trips[0]) {
         return (
@@ -22,6 +28,10 @@ var TripDisplay = React.createClass({
 
     return (
       <div>
+        <div>
+          <h1>{this.props.trips[0].tripName}</h1>
+          <input onClick={this.deleteTrip} type="button" name="rename" value="Delete Trip" />
+        </div>
         {tripPoiList}
       </div>
     )
@@ -33,7 +43,8 @@ var mapStateToProps = function(state, props) {
     return {
       googleID: state.googleID,
       trips: state.trips,
-      searchResults: state.searchResults
+      searchResults: state.searchResults,
+      activeTrip: state.activeTrip
     };
 };
 

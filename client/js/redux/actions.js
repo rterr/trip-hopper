@@ -153,7 +153,7 @@ var removeTrip = function(googleID, tripName) {
     var url = `/user/removeTrip/${googleID}`;
   return fetch(url,
   {
-    method: 'put',
+    method: 'delete',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
       'tripName': tripName
@@ -236,7 +236,7 @@ var removePoi = function(googleID, tripName, poi) {
     var url = `/user/poi/removePoi/${googleID}`;
   return fetch(url,
   {
-    method: 'put',
+    method: 'delete',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
       'tripName': tripName,
