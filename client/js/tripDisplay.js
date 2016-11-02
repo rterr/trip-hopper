@@ -7,7 +7,6 @@ var TripDisplayDetail = require('./tripDisplayDetail');
 
 var TripDisplay = React.createClass({
   deleteTrip: function(){
-      console.log("deleteTrip hit!");
     this.props.dispatch(actions.removeTrip(this.props.googleID, this.props.activeTrip));
     this.props.dispatch(actions.fetchUser());
   },

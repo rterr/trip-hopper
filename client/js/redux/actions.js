@@ -21,7 +21,6 @@ var fetchUserError = function(error) {
 
 var FETCH_POI_SUCCESS = 'FETCH_POI_SUCCESS';
 var fetchPoiSuccess = function(searchResults) {
-  console.log('Search results action hit!', searchResults);
   return {
     type: FETCH_POI_SUCCESS,
     searchResults: searchResults
@@ -95,8 +94,6 @@ var poiSearch = function(searchTerm, searchLocation) {
 
 // PUT request to add trip
 var addTrip = function(tripName, poi, googleID) {
-  console.log('ACTION TRIPNAME', tripName);
-  console.log('ACTION POI', poi);
   return function(dispatch) {
     var token = Cookies.get('accessToken');
     var activeTrip = tripName
@@ -146,8 +143,6 @@ var addTrip = function(tripName, poi, googleID) {
 
 // PUT request to remove entire trip from trips array
 var removeTrip = function(googleID, tripName) {
-  console.log("REMOVETRIP action hit!")
-  console.log("REMOVETRIP ", googleID, tripName)
   return function(dispatch) {
     var token = Cookies.get('accessToken');
     var url = `/user/removeTrip/${googleID}`;
@@ -182,8 +177,6 @@ var removeTrip = function(googleID, tripName) {
 
 // PUT request to add POI
 var addPoi = function(tripName, poi, googleID) {
-  console.log('ACTION TRIPNAME: ', tripName)
-  console.log('ACTION PROPS', poi);
   return function(dispatch) {
     var token = Cookies.get('accessToken');
     var url = `/user/trips/${googleID}/${tripName}`;
@@ -307,9 +300,10 @@ exports.fetchPoiError = fetchPoiError;
 exports.FETCH_POI_SUCCESS = FETCH_POI_SUCCESS;
 exports.FETCH_POI_ERROR = FETCH_POI_ERROR;
 
+exports.removeTrip = removeTrip;
+
 exports.setActiveTrip = setActiveTrip;
 
 exports.addTrip = addTrip;
-exports.removeTrip = removeTrip;
 exports.addPoi = addPoi;
 exports.removePoi = removePoi;

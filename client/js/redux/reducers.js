@@ -32,8 +32,7 @@ var reducer = function(state, action) {
 
 		// Updates state upon location trail search
 		case actions.FETCH_POI_SUCCESS:
-			// console.log('FETCH_POI_SUCCESS');
-			console.log("FETCH_POI_SUCCESS")
+			console.log("FETCH_POI_SUCCESS");
 			var searchRes = action.searchResults.businesses;
 			var newState = Object.assign({}, state, {
 				searchResults: searchRes
@@ -53,6 +52,23 @@ var reducer = function(state, action) {
 			console.log('SET ACTIVE TRIP STATE', state);
 			return newState;
 	
+		// Updates state upon removing trip success
+		case actions.REMOVE_TRIP_SUCCESS:
+			console.log('REMOVE_TRIP_SUCCESS');
+			console.log('ACTION', action);
+			var user = action.user;
+			var newState = Object.assign({}, state, {
+				googleID: user.googleID,
+				trips: user.trips,
+				activeTrip: null
+			});
+			console.log('NEWSTATE', newState);
+			return newState;
+
+		case actions.REMOVE_TRIP_ERROR:
+			// console.log('REMOVE_TRIP_ERROR');
+			return state;	
+
 	}
 	return state;
 };
