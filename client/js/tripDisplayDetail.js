@@ -21,7 +21,6 @@ var TripDisplayDetail = React.createClass({
       <div className="poi-img"><img src={this.props.poi.image_url} /></div>
         <div><span className="poi-name">{this.props.poi.name}</span> <span className="poi-rating">{this.props.poi.rating}</span></div>
       <div className="poi-location">{this.props.poi.location[0]}, {this.props.poi.location[1]}</div>
-      <div className="poi-desc">{this.props.poi.categories[0][0]}, {this.props.poi.categories[1][0]}</div>
         <button onClick={this.deletePoi} >Delete</button>
       </div>
 

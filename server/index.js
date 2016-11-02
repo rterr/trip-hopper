@@ -165,7 +165,7 @@ app.put('/user/:googleID/:activeTrip', passport.authenticate('bearer', {session:
   });
 
 //remove entire trip from trips array
-app.put('/user/removeTrip/:googleID', passport.authenticate('bearer', {session: false}),
+app.delete('/user/removeTrip/:googleID', passport.authenticate('bearer', {session: false}),
   function(req, res) {
     console.log(req.body)
     User.findOneAndUpdate({ 'googleID':req.user.googleID },
@@ -183,7 +183,7 @@ app.put('/user/removeTrip/:googleID', passport.authenticate('bearer', {session: 
 // PUT: add pois to existing trips
 app.put('/user/trips/:googleID/:tripName', passport.authenticate('bearer', {session: false}),
   function(req, res) {
-    console.log('wrong one!')
+    // console.log('wrong one!')
     var tripName = req.params.tripName;
     var googleID = req.user.googleID;
     User.findOneAndUpdate( { 'googleID':googleID, 'trips.tripName':tripName },
@@ -197,7 +197,7 @@ app.put('/user/trips/:googleID/:tripName', passport.authenticate('bearer', {sess
       });
   });
 
-  app.put('/user/poi/removePoi/:googleID', passport.authenticate('bearer', {session: false}),
+  app.delete('/user/poi/removePoi/:googleID', passport.authenticate('bearer', {session: false}),
     function(req, res) {
       console.log('testing')
       var tripName = req.body.tripName;
