@@ -12,7 +12,6 @@ var TripDisplay = React.createClass({
 
   deleteTrip: function(){
     this.props.dispatch(actions.removeTrip(this.props.googleID, this.props.activeTrip));
-    this.props.dispatch(actions.fetchUser());
   },
 
   render: function(props){
