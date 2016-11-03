@@ -12,7 +12,7 @@ var TripSaveLoad = React.createClass({
 
   toggleViewTrips: function(event){
     this.setState({
-      viewMode: true
+      viewMode: !this.state.viewMode
     });
   },
 

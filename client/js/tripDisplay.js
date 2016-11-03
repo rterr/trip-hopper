@@ -44,7 +44,7 @@ var mapStateToProps = function(state, props) {
   return {
     googleID: state.googleID,
     trip: state.trips.find((trip) => {
-      if(state.activeTrip == trip.tripName) {
+      if(state.activeTrip == trip._id) {
         return trip
       }
     }),

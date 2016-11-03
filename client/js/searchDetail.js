@@ -15,7 +15,7 @@ var SearchDetail = React.createClass({
   addTrip: function(){
     var tripName = prompt('Enter trip name');
     this.props.dispatch(actions.addTrip(tripName, this.props, this.props.googleID));
-    this.props.dispatch(actions.setActiveTrip(tripName));
+    // this.props.dispatch(actions.setActiveTrip(tripName));
   },
 
   render: function(props){
