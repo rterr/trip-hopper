@@ -1,5 +1,6 @@
 require('isomorphic-fetch');
 var Cookies = require("js-cookie");
+var ObjectID = require("bson-objectid");
 
 
 var FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
@@ -104,6 +105,7 @@ var addTrip = function(tripName, poi, googleID) {
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
       'tripName': tripName,
+      '_id': ObjectID(),
       'pois': [{
         'name': poi.poi.name,
         'location': poi.poi.location.display_address,

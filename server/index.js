@@ -122,7 +122,7 @@ passport.use(new BearerStrategy(
 //confirm user authentication/creation
 app.get('/user', passport.authenticate('bearer', {session: false}), function(req, res) {
   var googleID = req.user.googleID;
-  User.find({googleID: googleID}, function(err, user) {
+  User.findOne({googleID: googleID}, function(err, user) {
     if (err) {
       res.send("Error has occured")
     } else {

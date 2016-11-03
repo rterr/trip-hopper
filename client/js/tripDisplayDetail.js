@@ -9,8 +9,6 @@ var TripDisplayDetail = React.createClass({
   },
 
   deletePoi: function(){
-    console.log("deletePoi hit!");
-    console.log("delete passed ", this.props.googleID, this.props.activeTrip, this.props.poi)
     this.props.dispatch(actions.removePoi(this.props.googleID, this.props.activeTrip, this.props.poi));
     this.props.dispatch(actions.fetchUser());
   },
@@ -25,7 +23,6 @@ var TripDisplayDetail = React.createClass({
         <div className="poi-location">{this.props.poi.location[0]}, {this.props.poi.location[1]}</div>
         <button onClick={this.deletePoi} >Delete</button>
       </div>
-
     )
   }
 

@@ -8,13 +8,9 @@ var TripSaveLoad = React.createClass({
   getInitialState: function(event){
     return({
       viewMode: false})
- },
-
-  saveTrip: function(event){
-    this.props.dispatch(actions.addTrip());
   },
 
-  viewTrips: function(event){
+  toggleViewTrips: function(event){
     this.setState({
       viewMode: true
     });
@@ -31,18 +27,18 @@ var TripSaveLoad = React.createClass({
       return <TripListDetail key={trip.tripName} trip={trip} />
     });
 
-      return (
+    return (
+      <div>
         <div>
-        <div>
-          <input onClick={this.viewTrips} type="button" name="load" value="View Saved Trips/Load" />
+          <input onClick={this.toggleViewTrips} type="button" name="load" value="View Saved Trips/Load" />
         </div>
         {this.state.viewMode && <div className="saved-display">
           {savedTrips}
         </div>}
-      </div>)
-
-
+      </div>
+    )
   }
+  
 });
 
 var mapStateToProps = function(state, props) {
