@@ -6,29 +6,32 @@ var TripDisplayDetail = require('./tripDisplayDetail');
 
 
 var TripDisplay = React.createClass({
+  componentWillMount: function() {
+    this.props.dispatch(actions.fetchUser());
+  },
+
   deleteTrip: function(){
     this.props.dispatch(actions.removeTrip(this.props.googleID, this.props.activeTrip));
     this.props.dispatch(actions.fetchUser());
   },
 
   render: function(props){
-        if (!this.props.trips[0]) {
-        return (
-          <div>
-            <p>Enter a trip</p>
-          </div>
-        )
-      }
+    if (this.props.activeTrip == null) {
+      return (
+        <div>
+          <p>Enter a trip</p>
+        </div>
+      )
+    }
 
-
-    var tripPoiList = this.props.trips[0].pois.map((poidata) => {
+    var tripPoiList = this.props.trip.pois.map((poidata) => {
       return (<TripDisplayDetail key={poidata.id} poi={poidata} />)
     });
 
     return (
       <div>
         <div>
-          <h1>{this.props.trips[0].tripName}</h1>
+          <h1>{this.props.trip.tripName}</h1>
           <input onClick={this.deleteTrip} type="button" name="rename" value="Delete Trip" />
         </div>
         {tripPoiList}
@@ -39,12 +42,16 @@ var TripDisplay = React.createClass({
 });
 
 var mapStateToProps = function(state, props) {
-    return {
-      googleID: state.googleID,
-      trips: state.trips,
-      searchResults: state.searchResults,
-      activeTrip: state.activeTrip
-    };
+  return {
+    googleID: state.googleID,
+    trip: state.trips.find((trip) => {
+      if(state.activeTrip == trip.tripName) {
+        return trip
+      }
+    }),
+    searchResults: state.searchResults,
+    activeTrip: state.activeTrip
+  };
 };
 
 var Container = connect(mapStateToProps)(TripDisplay);

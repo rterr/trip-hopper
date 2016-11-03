@@ -4,16 +4,16 @@ var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
 
 var TripListDetail = React.createClass({
-  // componentDidMount: function() {
-  //   this.props.dispatch(actions.fetchUser());
-  // },
+  componentDidMount: function() {
+    this.props.dispatch(actions.fetchUser());
+  },
 
   loadTrip: function(){
-
+    this.props.dispatch(actions.setActiveTrip(this.props.trip.tripName));
+    this.props.changeView();
   },
 
   render: function(props){
-    //console.log('SEARCHPOI ', this.props);
     return (
       <div className="saved-trip">
           <div className="trip-name">{this.props.trip.tripName}</div>
