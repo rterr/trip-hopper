@@ -24,7 +24,7 @@ var TripSaveLoad = React.createClass({
 
   render: function(props){
     var savedTrips = this.props.trips.map((trip) => {
-      return <TripListDetail key={trip.tripName} trip={trip} />
+      return <TripListDetail key={trip.tripName} trip={trip} changeView={this.loadTrip} />
     });
 
     return (
