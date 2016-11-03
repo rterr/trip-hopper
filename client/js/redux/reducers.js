@@ -5,6 +5,7 @@ var initialState = {
 	trips: [
 		{
 			tripName: '',
+			_id: '',
 			pois: []}
 		],
 	searchResults: [],
