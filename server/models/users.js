@@ -12,7 +12,7 @@ var UserSchema = new mongoose.Schema({
 	trips: {
     type: Array,
     default: []
-  },//add activeTrip
+  },
   activeTrip: {
     type: String
   }
