@@ -10,7 +10,6 @@ var TripDisplayDetail = React.createClass({
 
   deletePoi: function(){
     this.props.dispatch(actions.removePoi(this.props.googleID, this.props.activeTrip, this.props.poi));
-    this.props.dispatch(actions.fetchUser());
   },
 
   render: function(props){
