@@ -18,7 +18,7 @@ var yelp = new Yelp({
   consumer_key: process.env.consumer_key,
   consumer_secret: process.env.consumer_secret,
   token: process.env.token,
-  token_secret: process.env.token_secret,
+  token_secret: process.env.token_secret
 });
 
 const HOST = process.env.HOST;
@@ -72,7 +72,8 @@ function(accessToken, refreshToken, profile, done) {
         User.create({
           googleID: profile.id,
           accessToken: accessToken,
-          trips: []
+          trips: [],
+          activeTrip: null
         }, function(err, user) {
           return done(err, user);
         });
@@ -95,7 +96,7 @@ app.get('/auth/google/callback',
   function(req, res) {
     console.log(req.user.accessToken)
     res.cookie('accessToken', req.user.accessToken, {expires: 0});
-    res.redirect('/');
+    res.redirect('/#/planner');
   }
 );
 //Is this all that we need?
@@ -123,7 +124,7 @@ passport.use(new BearerStrategy(
 //confirm user authentication/creation
 app.get('/user', passport.authenticate('bearer', {session: false}), function(req, res) {
   var googleID = req.user.googleID;
-  User.find({googleID: googleID}, function(err, user) {
+  User.findOne({googleID: googleID}, function(err, user) {
     if (err) {
       res.send("Error has occured")
     } else {
@@ -150,10 +151,11 @@ app.get('/api/:term/:location', function(req, res){
 
 
 // PUT: Add to trips (avoids duplicates)
-app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
+app.put('/user/:googleID/:activeTrip', passport.authenticate('bearer', {session: false}),
   function(req, res) {
     User.findOneAndUpdate({ 'googleID':req.user.googleID },
                   { $push: { 'trips':req.body } },
+                  // { $set: { 'activeTrip':req.params.activeTrip} },
                   {new: true},
       function(err, user) {
         if(err) {
@@ -163,9 +165,27 @@ app.put('/user/:googleID', passport.authenticate('bearer', {session: false}),
       });
   });
 
-// PUT: Remove from trips
+//remove entire trip from trips array
+app.delete('/user/removeTrip/:googleID', passport.authenticate('bearer', {session: false}),
+  function(req, res) {
+    console.log(req.body)
+    User.findOneAndUpdate({ 'googleID':req.user.googleID },
+                  { $pull: { 'trips':{'tripName':req.body.tripName} },
+                    $set: {'activeTrip': null} },
+                  {new: true},
+      function(err, user) {
+        if(err) {
+          return res.send(err)
+        }
+        return res.json(user);
+      });
+  });
+
+
+// PUT: add pois to existing trips
 app.put('/user/trips/:googleID/:tripName', passport.authenticate('bearer', {session: false}),
   function(req, res) {
+    // console.log('wrong one!')
     var tripName = req.params.tripName;
     var googleID = req.user.googleID;
     User.findOneAndUpdate( { 'googleID':googleID, 'trips.tripName':tripName },
@@ -178,6 +198,39 @@ app.put('/user/trips/:googleID/:tripName', passport.authenticate('bearer', {sess
         return res.json(user);
       });
   });
+
+  app.delete('/user/poi/removePoi/:googleID', passport.authenticate('bearer', {session: false}),
+    function(req, res) {
+      console.log('testing')
+      var tripName = req.body.tripName;
+      var googleID = req.user.googleID;
+      var poiID = req.body.id
+      console.log('poiID: ',poiID)
+      console.log('tripName: ',tripName)
+      User.findOneAndUpdate( { 'googleID':googleID, 'trips.tripName': tripName },
+                    { $pull : { 'trips.$.pois':{ 'id': poiID } } },
+                    { new: true },
+        function(err, user) {
+          if(err) {
+            return res.send(err)
+          }
+          return res.json(user);
+        });
+    });
+
+//changes status of activeTrip
+  app.put('/user/:activeTrip', passport.authenticate('bearer', {session: false}),
+    function(req, res) {
+      User.findOneAndUpdate({ 'googleID':req.user.googleID },
+                    { $set: { 'activeTrip':req.params.activeTrip } },
+                    {new: true},
+        function(err, user) {
+          if(err) {
+            return res.send(err)
+          }
+          return res.json(user);
+        });
+    });
 
 
 function runServer() {

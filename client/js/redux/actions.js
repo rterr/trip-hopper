@@ -1,9 +1,11 @@
 require('isomorphic-fetch');
 var Cookies = require("js-cookie");
+var ObjectID = require("bson-objectid");
 
 
 var FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
-var fetchUserSuccess = function(user, score, answer) {
+var fetchUserSuccess = function(user) {
+
   return {
     type: FETCH_USER_SUCCESS,
     user: user
@@ -64,9 +66,9 @@ var fetchUser = function() {
 };
 
 // GET request for initial starting point-of-interest (poi)
-var poiSearch = function(searchTerm, location) {
+var poiSearch = function(searchTerm, searchLocation) {
   return function(dispatch) {
-    var location = location;
+    var location = searchLocation;
     var term = searchTerm;
     var url = `/api/${term}/${location}`;
     return fetch(url)
@@ -91,31 +93,32 @@ var poiSearch = function(searchTerm, location) {
   }
 };
 
-// PUT request to add trip 
-var addTrip = function(props) {
+// PUT request to add trip
+var addTrip = function(tripName, poi, googleID) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-    var googleID = props.userId;
-    var url = `/user/${googleID}`;
+    var activeTrip = tripName
+    var url = `/user/${googleID}/${activeTrip}`;
   return fetch(url,
   {
     method: 'put',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
-      'tripName': props.tripName,
+      'tripName': tripName,
+      '_id': ObjectID(),
       'pois': [{
-        'name': props.poi.name,
-        'location': props.poi.location.display_address,
-        'coordinate': props.poi.location.coordinate,
-        'id': props.poi.id,
-        'url': props.poi.url,
-        'image_url': props.poi.image_url,
-        'rating': props.poi.rating,
-        'review_count': props.poi.review_count,
-        'rating_img_url': props.poi.rating_img_url,
-        'rating_img_url_small': props.poi.rating_img_url_small,
-        'display_phone': props.poi.display_phone,
-        'categories': props.poi.categories
+        'name': poi.poi.name,
+        'location': poi.poi.location.display_address,
+        'coordinate': poi.poi.location.coordinate,
+        'id': poi.poi.id,
+        'url': poi.poi.url,
+        'image_url': poi.poi.image_url,
+        'rating': poi.poi.rating,
+        'review_count': poi.poi.review_count,
+        'rating_img_url': poi.poi.rating_img_url,
+        'rating_img_url_small': poi.poi.rating_img_url_small,
+        'display_phone': poi.poi.display_phone,
+        'categories': poi.poi.categories
       }]
     })
   }
@@ -140,30 +143,17 @@ var addTrip = function(props) {
   }
 };
 
-// PUT request to add POI 
-var addPoi = function(props) {
+// PUT request to remove entire trip from trips array
+var removeTrip = function(googleID, tripName) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
-    var googleID = props.userId;
-    var tripName = props.tripName;
-    var url = `/user/trips/${googleID}/${tripName}`;
+    var url = `/user/removeTrip/${googleID}`;
   return fetch(url,
   {
-    method: 'put',
+    method: 'delete',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
-      'name': props.poi.name,
-      'location': props.poi.location.display_address,
-      'coordinate': props.poi.location.coordinate,
-      'id': props.poi.id,
-      'url': props.poi.url,
-      'image_url': props.poi.image_url,
-      'rating': props.poi.rating,
-      'review_count': props.poi.review_count,
-      'rating_img_url': props.poi.rating_img_url,
-      'rating_img_url_small': props.poi.rating_img_url_small,
-      'display_phone': props.poi.display_phone,
-      'categories': props.poi.categories
+      'tripName': tripName
     })
   }
     ).then(function(response) {
@@ -187,39 +177,118 @@ var addPoi = function(props) {
   }
 };
 
-// // PUT request to remove favorites from user schema
-// var removeFavorite = function(props) {
-//   return function(dispatch) {
-//     var token = Cookies.get('accessToken');
-//     var url = 'http://localhost:8080/user/favorites/'+props.trail_id;
-//   return fetch(url,
-//   {
-//     method: 'put',
-//     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
-//     body: JSON.stringify({
-//       'googleID': props.userId
-//     })
-//   }
-//     ).then(function(response) {
-//       if(response.status < 200 || response.status > 300) {
-//         var error = new Error(response.statusText);
-//         error.response = response;
-//         throw error;
-//       }
-//       return response.json();
-//     })
-//     .then(function(response) {
-//       return dispatch(
-//         fetchUserSuccess()
-//         );
-//     })
-//     .catch(function(error) {
-//       return dispatch(
-//         fetchUserError(error)
-//         );
-//     });
-//   }
-// };
+// PUT request to add POI
+var addPoi = function(tripName, poi, googleID) {
+  return function(dispatch) {
+    var token = Cookies.get('accessToken');
+    var url = `/user/trips/${googleID}/${tripName}`;
+  return fetch(url,
+  {
+    method: 'put',
+    headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
+    body: JSON.stringify({
+      'name': poi.poi.name,
+      'location': poi.poi.location.display_address,
+      'coordinate': poi.poi.location.coordinate,
+      'id': poi.poi.id,
+      'url': poi.poi.url,
+      'image_url': poi.poi.image_url,
+      'rating': poi.poi.rating,
+      'review_count': poi.poi.review_count,
+      'rating_img_url': poi.poi.rating_img_url,
+      'rating_img_url_small': poi.poi.rating_img_url_small,
+      'display_phone': poi.poi.display_phone,
+      'categories': poi.poi.categories
+    })
+  }
+    ).then(function(response) {
+      if(response.status < 200 || response.status > 300) {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+      }
+      return response.json();
+    })
+    .then(function(response) {
+      return dispatch(
+        fetchUserSuccess(response)
+        );
+    })
+    .catch(function(error) {
+      return dispatch(
+        fetchUserError(error)
+        );
+    });
+  }
+};
+
+// PUT request to remove entire trip from trips array
+var removePoi = function(googleID, tripName, poi) {
+  console.log("REMOVEPOI action hit!")
+  console.log("REMOVEPOI ", googleID, tripName, poi.id)
+  return function(dispatch) {
+    var token = Cookies.get('accessToken');
+    var url = `/user/poi/removePoi/${googleID}`;
+  return fetch(url,
+  {
+    method: 'delete',
+    headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
+    body: JSON.stringify({
+      'tripName': tripName,
+      'id': poi.id
+    })
+  }
+    ).then(function(response) {
+      if(response.status < 200 || response.status > 300) {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+      }
+      return response.json();
+    })
+    .then(function(response) {
+      return dispatch(
+        fetchUserSuccess(response)
+        );
+    })
+    .catch(function(error) {
+      return dispatch(
+        fetchUserError(error)
+        );
+    });
+  }
+};
+
+// PUT request to change activeTrip
+var setActiveTrip = function(activeTrip) {
+  return function(dispatch) {
+    var token = Cookies.get('accessToken');
+    var url = `/user/${activeTrip}`;
+  return fetch(url,
+  {
+    method: 'put',
+    headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token}
+  }
+    ).then(function(response) {
+      if(response.status < 200 || response.status > 300) {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+      }
+      return response.json();
+    })
+    .then(function(response) {
+      return dispatch(
+        fetchUserSuccess(response)
+        );
+    })
+    .catch(function(error) {
+      return dispatch(
+        fetchUserError(error)
+        );
+    });
+  }
+};
 
 exports.fetchUser = fetchUser;
 exports.fetchUserSuccess = fetchUserSuccess;
@@ -233,6 +302,10 @@ exports.fetchPoiError = fetchPoiError;
 exports.FETCH_POI_SUCCESS = FETCH_POI_SUCCESS;
 exports.FETCH_POI_ERROR = FETCH_POI_ERROR;
 
+exports.removeTrip = removeTrip;
+
+exports.setActiveTrip = setActiveTrip;
+
 exports.addTrip = addTrip;
 exports.addPoi = addPoi;
-// exports.removeFavorite = removeFavorite;
+exports.removePoi = removePoi;

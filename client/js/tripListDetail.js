@@ -2,33 +2,36 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
-var SearchDetail = require('./searchDetail');
 
-var SearchResults = React.createClass({
+var TripListDetail = React.createClass({
   componentDidMount: function() {
     this.props.dispatch(actions.fetchUser());
   },
 
+  loadTrip: function(){
+    this.props.dispatch(actions.setActiveTrip(this.props.trip.tripName));
+    this.props.changeView();
+  },
+
   render: function(props){
-    var searchResultsDetail = this.props.searchResults.map((poi) => {
-      return <SearchDetail key={poi.id} poi={poi} />
-    });
     return (
-      <div>
-        {searchResultsDetail}
+      <div className="saved-trip">
+          <div className="trip-name">{this.props.trip.tripName}</div>
+          <input type="button" name="load" value="Load" onClick={this.loadTrip} />
       </div>
     )
   }
+
 });
 
 var mapStateToProps = function(state, props) {
     return {
       googleID: state.googleID,
       trips: state.trips,
-      searchResults: state.searchResults
+      activeTrip: state.activeTrip
     };
 };
 
-var Container = connect(mapStateToProps)(SearchResults);
+var Container = connect(mapStateToProps)(TripListDetail);
 
 module.exports = Container;

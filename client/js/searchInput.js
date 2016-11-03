@@ -1,20 +1,54 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
-//var actions = require('../actions');
+var actions = require('./redux/actions');
 
 var SearchInput = React.createClass({
-  render: function(){
-    <form>
-    <input type="text" name="searchText" id="searchText" className="text" autoComplete="off" required ref="input" />
+  getInitialState: function(event){
+    return ({
+      optionSelected: '__'
+    })
+  },
+
+  optionChange: function(event){
+
+  },
+
+  submitSearch: function(event){
+    event.preventDefault();
+    var searchText = this.refs.inputText.value;
+    var searchLocation = this.refs.inputLocation.value;
+    // console.log(searchText, searchLocation)
+    this.props.dispatch(actions.poiSearch(searchText, searchLocation));
+    // console.log(this.props.searchResults)
+  },
+
+  render: function(props){
+    return (
+      <div>
+    <form onSubmit={this.submitSearch}>
+    <input type="text" placeholder="In location..." name="searchLocation" id="searchLocation" className="text" autoComplete="off" required ref="inputLocation" />
+    <input type="text" placeholder="Search for..." name="searchText" id="searchText" className="text" autoComplete="off" required ref="inputText" />
     <input type="submit" id="inputButton" className="button btn btn-primary" name="submit" value="Search"/>
   </form>
+  {/*<div>
+   <select onChange={this.optionChange} value={this.state.optionSelected}>
+      <option value="__">Choose an option...</option>
+      <option value="restaurants">Restaurants</option>
+      <option value="cafes">Cafes</option>
+      <option value="hotels">Hotels</option>
+      <option value="entertainment">entertainment</option>
+    </select> in Location...
+  </div>*/}
+  </div>)
   }
 });
 
 var mapStateToProps = function(state, props) {
     return {
-      null:null
+      googleID: state.googleID,
+      trips: state.trips,
+      searchResults: state.searchResults
     };
 };
 
