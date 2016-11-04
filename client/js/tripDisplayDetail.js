@@ -13,9 +13,13 @@ var TripDisplayDetail = React.createClass({
     this.props.dispatch(actions.fetchUser());
   },
 
+  selectPoi: function(event){
+    console.log("Selected " + this.props.poi.name);
+  },
+
   render: function(props){
     return (
-      <div className="trip-poi poi-entry">
+      <div className="trip-poi poi-entry" onClick={this.selectPoi}>
       <div className="poi-img"><img src={this.props.poi.image_url} /></div>
       <div className="poi-reorder">{'\u25B2'}<br />{'\u25BC'}</div>
       <div className="poi-name"><a href={this.props.poi.url} target="_blank">{this.props.poi.name}</a> <img src={this.props.poi.rating_img_url} /></div>
