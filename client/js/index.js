@@ -3,6 +3,7 @@ var Yelp = require('yelp');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
+import { withGoogleMap } from "react-google-maps";
 var connect = require('react-redux').connect;
 var store = require('./redux/store');
 var Provider = require('react-redux').Provider;
@@ -17,6 +18,7 @@ var Link = router.Link;
 
 var Landing = require('./landing');
 var Planner = require('./planner');
+var Map = require('./map');
 
 
 
