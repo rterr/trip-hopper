@@ -12,13 +12,16 @@ var TripDisplayDetail = React.createClass({
     this.props.dispatch(actions.removePoi(this.props.googleID, this.props.activeTrip, this.props.poi));
   },
 
+  selectPoi: function(event){
+    console.log("Selected " + this.props.poi.name);
+  },
+
   render: function(props){
     return (
-      <div className="trip-poi poi-entry">
-        <div className="poi-img"><img src={this.props.poi.image_url} /></div>
-          <div><span className="poi-name">{this.props.poi.name}</span> 
-          <span className="poi-rating">{this.props.poi.rating}</span>
-        </div>
+      <div className="trip-poi poi-entry" onClick={this.selectPoi}>
+      <div className="poi-img"><img src={this.props.poi.image_url} /></div>
+      <div className="poi-reorder">{'\u25B2'}<br />{'\u25BC'}</div>
+      <div className="poi-name"><a href={this.props.poi.url} target="_blank">{this.props.poi.name}</a> <img src={this.props.poi.rating_img_url} /></div>
         <div className="poi-location">{this.props.poi.location[0]}, {this.props.poi.location[1]}</div>
         <button onClick={this.deletePoi} >Delete</button>
       </div>

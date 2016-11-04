@@ -11,6 +11,14 @@ body {
   font-family:sans-serif;
 }
 
+.yelp-credit {
+  img {
+    height:2em;
+    vertical-align:middle;
+  }
+  display:inline-block;
+}
+
 .search-module {
   @include span-columns(12);
   border: 2px solid firebrick;
@@ -32,35 +40,41 @@ body {
   border:1px solid gray;
 }
 
-.rename-input {
-  font-size:2em;
-}
-
 .poi-img {
 	display:inline-block;
 	vertical-align:top;
   float:left;
   margin-right:0.5em;
+  width:75px;
+  height: 75px;
+  background-color:lightgray;
+  border-radius:0.75em;
   img {
-  	background-color:lightgray;
-  	border-radius:0.75em;
   	width:75px;
+    border-radius:0.75em;
   }
 }
 
 .poi-entry {
   @include clearfix;
+  margin-bottom: 1em;
+  &:last-child {
+    margin-bottom:0em;
+  }
 }
 
 .poi-name {
 	font-size:1.25em;
 	font-weight:bold;
-	font-family:sans-serif;
+  vertical-align:middle;
+  display:inline-block;
+  img {
+    vertical-align:middle;
+  }
 }
 
 .poi-name a {
 	color:#463d66;
-  line-height:2em;
 }
 
 .poi-rating {
@@ -73,7 +87,12 @@ body {
 	text-shadow: 1px 1px 1px slategray;
 }
 
+.poi-reorder {
+  float:right;
+  font-size:1.5em;
+}
+
 h1 {
-  display:inline-block;
+  display:block;
   margin:0px;
 }
