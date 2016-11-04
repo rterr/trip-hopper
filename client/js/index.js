@@ -9,6 +9,7 @@ var store = require('./redux/store');
 var Provider = require('react-redux').Provider;
 var actions = require('./redux/actions');
 
+
 var router = require('react-router');
 var Router = router.Router;
 var Route = router.Route;
@@ -18,7 +19,7 @@ var Link = router.Link;
 
 var Landing = require('./landing');
 var Planner = require('./planner');
-var Map = require('./map');
+var GettingStartedGoogleMap = require('./map');
 
 
 
@@ -38,6 +39,7 @@ var routes = (
     	<Route path="/" component={App}>
 	        <IndexRoute component={Landing} />
           <Route path="/planner" component={Planner} />
+          <Route path="/map" component={GettingStartedGoogleMap} />
       </Route>
     </Router>
     </Provider>
