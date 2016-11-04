@@ -27,7 +27,7 @@ var SearchDetail = React.createClass({
     return (
       <div className="poi-entry">
         <div className="poi-img"><img src={this.props.poi.image_url} /></div>
-        <div><span className="poi-name">{this.props.poi.name}</span> <span className="poi-rating">{this.props.poi.rating}</span></div>
+        <div className="poi-name"><a href={this.props.poi.url} target="_blank">{this.props.poi.name}</a> <img src={this.props.poi.rating_img_url} /></div>
         <div className="poi-location">{this.props.poi.location.display_address[0]} {this.props.poi.location.display_address[1]}</div>
         <button onClick={this.addPoi} >Add To Existing Trip</button>
         <button onClick={this.addTrip} >Start New Trip</button>

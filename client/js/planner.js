@@ -16,7 +16,8 @@ render: function(props) {
     return (
       <div>
       <h1>Trip Hopper</h1>
-      <p>Powered by <a href="http://www.yelp.com">Yelp</a></p>
+      <div className="yelp-credit">Powered by <a href="http://www.yelp.com"><img src="./assets/yelp-2c.png" /></a></div>
+      <button><a href="/logout">Log Out</a></button>
         <div>
           <SearchModule />
           <TripModule />
