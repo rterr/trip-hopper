@@ -4,6 +4,7 @@ var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
 import GoogleMap from './maps'
 
+
 var TripDisplayDetail = React.createClass({
   componentDidMount: function() {
     this.props.dispatch(actions.fetchUser());
@@ -11,7 +12,6 @@ var TripDisplayDetail = React.createClass({
 
   deletePoi: function(){
     this.props.dispatch(actions.removePoi(this.props.googleID, this.props.activeTrip, this.props.poi));
-    this.props.dispatch(actions.fetchUser());
   },
 
   selectPoi: function(event){
@@ -25,12 +25,10 @@ var TripDisplayDetail = React.createClass({
         <div className="poi-reorder">{'\u25B2'}<br />{'\u25BC'}</div>
         <div className="poi-name"><a href={this.props.poi.url} target="_blank">{this.props.poi.name}</a> <img src={this.props.poi.rating_img_url} /></div>
         <div className="poi-location">{this.props.poi.location[0]}, {this.props.poi.location[1]}</div>
-        <button onClick={this.deletePoi} >Delete</button>
-        <GoogleMap />
+        <button onClick={this.deletePoi} className="delete-poi">Delete</button>
       </div>
-    )
+    );
   }
-
 });
 
 var mapStateToProps = function(state, props) {

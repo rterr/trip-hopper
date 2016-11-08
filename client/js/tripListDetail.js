@@ -9,7 +9,7 @@ var TripListDetail = React.createClass({
   },
 
   loadTrip: function(){
-    this.props.dispatch(actions.setActiveTrip(this.props.trip.tripName));
+    this.props.dispatch(actions.setActiveTrip(this.props.trip._id));
     this.props.changeView();
   },
 

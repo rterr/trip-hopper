@@ -1,0 +1,3 @@
+exports.ItemTypes = {
+  POI: 'poi'
+};

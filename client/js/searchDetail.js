@@ -10,16 +10,15 @@ var SearchDetail = React.createClass({
 
   addPoi: function(){
     this.props.dispatch(actions.addPoi(this.props.activeTrip, this.props, this.props.googleID));
-    this.props.dispatch(actions.fetchUser());
   },
 
   addTrip: function(){
     var tripName = prompt('Enter trip name');
-    // console.log('TRIPNAME', tripName);
-    // console.log('THIS.PROPS', this.props);
+    if (tripName == null) {
+      return;
+    };
     this.props.dispatch(actions.addTrip(tripName, this.props, this.props.googleID));
-    this.props.dispatch(actions.setActiveTrip(tripName));
-    this.props.dispatch(actions.fetchUser());
+    // this.props.dispatch(actions.setActiveTrip(tripName));
   },
 
   render: function(props){

@@ -12,7 +12,6 @@ var TripDisplay = React.createClass({
 
   deleteTrip: function(){
     this.props.dispatch(actions.removeTrip(this.props.googleID, this.props.activeTrip));
-    this.props.dispatch(actions.fetchUser());
   },
 
   render: function(props){
@@ -30,9 +29,9 @@ var TripDisplay = React.createClass({
 
     return (
       <div>
-        <div>
+        <div className="trip-display-header">
           <h1>{this.props.trip.tripName}</h1>
-          <input onClick={this.deleteTrip} type="button" name="rename" value="Delete Trip" />
+          <input className="delete-trip" onClick={this.deleteTrip} type="button" name="rename" value="Delete Trip" />
         </div>
         {tripPoiList}
       </div>
@@ -45,7 +44,7 @@ var mapStateToProps = function(state, props) {
   return {
     googleID: state.googleID,
     trip: state.trips.find((trip) => {
-      if(state.activeTrip == trip.tripName) {
+      if(state.activeTrip == trip._id) {
         return trip
       }
     }),
