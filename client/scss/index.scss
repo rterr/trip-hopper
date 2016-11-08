@@ -73,7 +73,11 @@ a {
   margin-top: 5%;
   font-size: 3em;
   text-align: center;
-  margin-bottom: .75em;
+  font-family: 'Shrikhand', cursive;
+}
+
+a h1 {
+  color:midnightblue;
 }
 
 .header {
@@ -88,6 +92,9 @@ a {
   img {
     height:2em;
     vertical-align:middle;
+  }
+  p {
+    margin:0px;
   }
 }
 
@@ -119,7 +126,7 @@ a {
   }
 }
 
-.trip-module {
+.trip-module, .saved-display {
   @include span-columns(12);
   /*border:2px solid steelblue;*/
 
@@ -177,7 +184,7 @@ button.delete-poi:hover {
   cursor: pointer;
 }
 
-.search-poi, .trip-poi, .saved-trips, .poi-entry {
+.search-poi, .trip-poi, .saved-trip, .poi-entry {
   /*border:1px solid gray;*/
   margin: 1em 0;
   padding: .25em;
@@ -238,8 +245,27 @@ button.delete-poi:hover {
   font-size:1.5em;
 }
 
-h1 {
-  display:block;
-  margin:0px;
+.footer {
+  @include span-columns(12);
+  text-align:center;
 }
 
+.menu-bar {
+  @include span-columns(12);
+  @include clearfix;
+  display:inline-block;
+  margin-bottom: 1em;
+  a {
+    @include span-columns(3);
+  }
+  div {
+    background-color:steelblue;
+    color: white;
+    padding:1em;
+    border-radius: 0.75em;
+  }
+  a {color:white;}
+  div:hover {
+    background-color:gainsboro;
+  }
+}
