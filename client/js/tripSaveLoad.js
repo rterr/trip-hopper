@@ -29,8 +29,8 @@ var TripSaveLoad = React.createClass({
 
     return (
       <div>
-        <div>
-          <input onClick={this.toggleViewTrips} type="button" name="load" value="View Saved Trips/Load" />
+        <div className="saved-trips-button">
+          <input onClick={this.toggleViewTrips} type="button" name="load" value="View Saved Trips/Load" className="save-load" />
         </div>
         {this.state.viewMode && <div className="saved-display">
           {savedTrips}
