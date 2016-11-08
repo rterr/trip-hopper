@@ -25,9 +25,9 @@ var SearchInput = React.createClass({
     return (
       <div>
     <form onSubmit={this.submitSearch}>
-    <input type="text" placeholder="In location..." name="searchLocation" id="searchLocation" className="text" autoComplete="off" required ref="inputLocation" />
-    <input type="text" placeholder="Search for..." name="searchText" id="searchText" className="text" autoComplete="off" required ref="inputText" />
-    <input type="submit" id="inputButton" className="button btn btn-primary" name="submit" value="Search"/>
+    <input type="text" placeholder="In location..." name="searchLocation" id="searchLocation" className="text input-text" autoComplete="off" required ref="inputLocation" />
+    <input type="text" placeholder="Search for..." name="searchText" id="searchText" className="text input-text" autoComplete="off" required ref="inputText" />
+    <input type="submit" id="inputButton" className="button btn btn-primary search-button" name="submit" value="Search"/>
   </form>
   {/*<div>
    <select onChange={this.optionChange} value={this.state.optionSelected}>

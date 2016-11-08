@@ -13,17 +13,23 @@ componentWillMount: function() {
   },
 
 render: function(props) {
-    return (
-      <div>
-      <h1>Trip Hopper</h1>
-      <div className="yelp-credit">Powered by <a href="http://www.yelp.com"><img src="./assets/yelp-2c.png" /></a></div>
-      <button><a href="/logout">Log Out</a></button>
-        <div>
-          <SearchModule />
-          <TripModule />
+  return (
+    <div>
+      <div className="header">
+        <h1 id="title">TRIP HOPPER</h1> 
+        <button id="logout" ><a href="/logout">Log Out</a></button>
+        <div className="yelp-credit footer"> 
+          <p id="powered-by">POWERED BY</p>
+          <a href="http://www.yelp.com" ><img src="./assets/yelp-2c.png" /></a>
         </div>
       </div>
-    )
+      
+      <div>
+        <SearchModule />
+        <TripModule />
+      </div>  
+    </div>
+  )
 }
 });
 
