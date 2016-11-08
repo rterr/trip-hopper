@@ -14,6 +14,7 @@ var SearchModule = React.createClass({
   render: function(props){
     return (
     <div className="search-module">
+    <h1>Add POI</h1>
       <SearchInput />
       <SearchResults />
     </div> );

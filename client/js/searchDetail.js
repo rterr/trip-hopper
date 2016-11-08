@@ -29,7 +29,6 @@ var SearchDetail = React.createClass({
         <div className="poi-name"><a href={this.props.poi.url} target="_blank">{this.props.poi.name}</a> <img src={this.props.poi.rating_img_url} /></div>
         <div className="poi-location">{this.props.poi.location.display_address[0]} {this.props.poi.location.display_address[1]}</div>
         <button onClick={this.addPoi} >Add To Existing Trip</button>
-        <button onClick={this.addTrip} >Start New Trip</button>
       </div>
     )
   }
