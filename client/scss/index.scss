@@ -19,11 +19,6 @@ body {
   display:inline-block;
 }
 
-.planner-header {
-  display:block;
-  background-color:gray;
-}
-
 .search-module {
   @include span-columns(12);
   border: 2px solid firebrick;
