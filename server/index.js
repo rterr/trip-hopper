@@ -136,7 +136,7 @@ app.get('/api/:term/:location', function(req, res){
   let location = req.params.location;
   yelp.search({ term: term,
    location: location,
-   sort: '1', limit: '3', radius_filter:'2000'})
+   sort: '1', limit: '3', radius_filter:'9000'})
   .then(function (data) {
     return res.send(data)
    })
@@ -149,9 +149,9 @@ app.get('/api/:term/:location', function(req, res){
 app.put('/user/:googleID/:tripName', passport.authenticate('bearer', {session: false}),
   function(req, res) {
     User.findOneAndUpdate({ 'googleID':req.user.googleID },
-                  { 
-                    $push: { 'trips':req.body }, 
-                    $set: { 'activeTrip':req.body._id} 
+                  {
+                    $push: { 'trips':req.body },
+                    $set: { 'activeTrip':req.body._id}
                   },
                   {new: true},
       function(err, user) {
@@ -166,9 +166,9 @@ app.put('/user/:googleID/:tripName', passport.authenticate('bearer', {session: f
 app.delete('/user/removeTrip/:googleID', passport.authenticate('bearer', {session: false}),
   function(req, res) {
     User.findOneAndUpdate({ 'googleID':req.user.googleID },
-                  { 
+                  {
                     $pull: { 'trips':{'_id':req.body._id} },
-                    $set: {'activeTrip': null} 
+                    $set: {'activeTrip': null}
                   },
                   {new: true},
       function(err, user) {
