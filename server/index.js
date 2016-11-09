@@ -26,7 +26,8 @@ const PORT = process.env.PORT || 8080;
 
 
 
-mongoose.connect(config.mongoDB.dbPath);
+var db = process.env.DBPATH || config.mongoDB.dbPath;
+mongoose.connect(db);
 console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
 const app = express();
