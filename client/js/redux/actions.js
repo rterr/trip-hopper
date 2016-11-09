@@ -66,11 +66,16 @@ var fetchUser = function() {
 };
 
 // GET request for initial starting point-of-interest (poi)
-var poiSearch = function(searchTerm, searchLocation) {
+var poiSearch = function(searchTerm, searchLocation, searchCLL) {
   return function(dispatch) {
     var location = searchLocation;
     var term = searchTerm;
-    var url = `/api/${term}/${location}`;
+    var cll = searchCLL;
+    if (location) {
+      var url = `/api/${term}?location=${location}`;
+    } else if (cll) {
+      var url = `/api/${term}?cll=${cll}`;
+    }
     return fetch(url)
     .then(function(response) {
       if (response.status < 200 || response.status >= 300) {
@@ -144,7 +149,7 @@ var addTrip = function(tripName, poi, googleID) {
 };
 
 // PUT request to remove entire trip from trips array
-var removeTrip = function(googleID, tripName) {
+var removeTrip = function(googleID, _id) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
     var url = `/user/removeTrip/${googleID}`;
@@ -153,7 +158,7 @@ var removeTrip = function(googleID, tripName) {
     method: 'delete',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
-      'tripName': tripName
+      '_id': _id
     })
   }
     ).then(function(response) {
@@ -223,9 +228,7 @@ var addPoi = function(tripName, poi, googleID) {
 };
 
 // PUT request to remove entire trip from trips array
-var removePoi = function(googleID, tripName, poi) {
-  console.log("REMOVEPOI action hit!")
-  console.log("REMOVEPOI ", googleID, tripName, poi.id)
+var removePoi = function(googleID, _id, poi) {
   return function(dispatch) {
     var token = Cookies.get('accessToken');
     var url = `/user/poi/removePoi/${googleID}`;
@@ -234,7 +237,7 @@ var removePoi = function(googleID, tripName, poi) {
     method: 'delete',
     headers: {'Content-type': 'application/json', 'Authorization': 'bearer ' + token},
     body: JSON.stringify({
-      'tripName': tripName,
+      '_id': _id,
       'id': poi.id
     })
   }

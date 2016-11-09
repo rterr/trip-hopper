@@ -3,7 +3,9 @@ var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
 
+
 var SearchModule = require('./searchModule');
+var PlannerHeader = require('./plannerHeader');
 var TripModule = require('./tripModule');
 
 var Planner = React.createClass({
@@ -13,16 +15,16 @@ componentWillMount: function() {
   },
 
 render: function(props) {
-    return (
+  return (
       <div>
-      <h1>Trip Hopper</h1>
-      <p>Powered by <a href="http://www.yelp.com">Yelp</a></p>
-        <div>
-          <SearchModule />
-          <TripModule />
+      <PlannerHeader />
+        {this.props.children}
+      <div className="yelp-credit footer"> 
+          <p id="powered-by">POWERED BY</p>
+          <a href="http://www.yelp.com" ><img src="./assets/yelp-2c.png" /></a>
         </div>
       </div>
-    )
+  )
 }
 });
 

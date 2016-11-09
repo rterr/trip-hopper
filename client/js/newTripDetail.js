@@ -2,9 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
-import GoogleMap from './maps'
 
-var SearchDetail = React.createClass({
+var NewTripDetail = React.createClass({
   // componentDidMount: function() {
   //   this.props.dispatch(actions.fetchUser());
   // },
@@ -23,14 +22,13 @@ var SearchDetail = React.createClass({
   },
 
   render: function(props){
-    console.log('SEARCHPOI ', this.props.poi);
+    //console.log('SEARCHPOI ', this.props);
     return (
       <div className="poi-entry">
         <div className="poi-img"><img src={this.props.poi.image_url} /></div>
         <div className="poi-name"><a href={this.props.poi.url} target="_blank">{this.props.poi.name}</a> <img src={this.props.poi.rating_img_url} /></div>
         <div className="poi-location">{this.props.poi.location.display_address[0]} {this.props.poi.location.display_address[1]}</div>
-        <GoogleMap lat={this.props.poi.location.coordinate.latitude} lng={this.props.poi.location.coordinate.longitude}/>
-        <button onClick={this.addPoi} >Add To Existing Trip</button>
+        <button onClick={this.addTrip} >Start New Trip</button>
       </div>
     )
   }
@@ -45,6 +43,6 @@ var mapStateToProps = function(state, props) {
     };
 };
 
-var Container = connect(mapStateToProps)(SearchDetail);
+var Container = connect(mapStateToProps)(NewTripDetail);
 
 module.exports = Container;

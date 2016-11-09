@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
+var Link = require('react-router').Link;
 
 var TripListDetail = React.createClass({
   componentDidMount: function() {
@@ -9,7 +10,7 @@ var TripListDetail = React.createClass({
   },
 
   loadTrip: function(){
-    this.props.dispatch(actions.setActiveTrip(this.props.trip.tripName));
+    this.props.dispatch(actions.setActiveTrip(this.props.trip._id));
     this.props.changeView();
   },
 
@@ -17,7 +18,7 @@ var TripListDetail = React.createClass({
     return (
       <div className="saved-trip">
           <div className="trip-name">{this.props.trip.tripName}</div>
-          <input type="button" name="load" value="Load" onClick={this.loadTrip} />
+          <Link to="/planner/viewtrip"><input type="button" name="load" value="Load" onClick={this.loadTrip} /></Link>
       </div>
     )
   }

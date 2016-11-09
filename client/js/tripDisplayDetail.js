@@ -2,6 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
+import GoogleMap from './maps'
+
 
 var TripDisplayDetail = React.createClass({
   componentDidMount: function() {
@@ -10,22 +12,25 @@ var TripDisplayDetail = React.createClass({
 
   deletePoi: function(){
     this.props.dispatch(actions.removePoi(this.props.googleID, this.props.activeTrip, this.props.poi));
-    this.props.dispatch(actions.fetchUser());
+  },
+
+  selectPoi: function(event){
+    console.log("Selected " + this.props.poi.name);
   },
 
   render: function(props){
-    return (
-      <div className="trip-poi poi-entry">
-        <div className="poi-img"><img src={this.props.poi.image_url} /></div>
-          <div><span className="poi-name">{this.props.poi.name}</span> 
-          <span className="poi-rating">{this.props.poi.rating}</span>
-        </div>
-        <div className="poi-location">{this.props.poi.location[0]}, {this.props.poi.location[1]}</div>
-        <button onClick={this.deletePoi} >Delete</button>
-      </div>
-    )
-  }
 
+    return (
+      <div className="trip-poi poi-entry" onClick={this.selectPoi}>
+        <div className="poi-img"><img src={this.props.poi.image_url} /></div>
+        {/*<div className="poi-reorder">{'\u25B2'}<br />{'\u25BC'}</div>*/}
+        <div className="poi-name"><a href={this.props.poi.url} target="_blank">{this.props.poi.name}</a> <img src={this.props.poi.rating_img_url} /></div>
+        <div className="poi-location">{this.props.poi.location[0]}, {this.props.poi.location[1]}</div>
+        <GoogleMap lat={this.props.poi.coordinate.latitude} lng={this.props.poi.coordinate.longitude}/>
+        <button onClick={this.deletePoi} className="delete-poi">Delete</button>
+      </div>
+    );
+  }
 });
 
 var mapStateToProps = function(state, props) {
