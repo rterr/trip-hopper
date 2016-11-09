@@ -43,7 +43,9 @@ var fetchUser = function() {
   	var headers = new Headers({
   		Authorization: 'bearer ' + token
   	});
+
     var url = '/user';
+
     return fetch(url, {headers: headers}).then(function(response) {
       if (response.status < 200 || response.status >= 300) {
         var error = new Error(response.statusText);

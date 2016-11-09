@@ -62,9 +62,10 @@
     "build:client:production:assets": "run-s clean:client:production:assets && cp -r client/assets build/production/client",
     "dev:hot": "webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cached --content-base ./",
     "ava": {
-    "require": [
-      "./test/helpers/setup-browser-env.js"
-    ]
+      "require": [
+        "./test/helpers/setup-browser-env.js"
+      ]
+    }
   },
   "author": "Joe Turner <joe@oampo.co.uk>",
   "license": "UNLICENSED",
@@ -107,9 +108,7 @@
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
     "js-cookie": "^2.1.3",
-    "jsdom": "^9.8.3",
     "md5": "^2.2.1",
-    "mocha": "^3.1.2",
     "mongoose": "^4.6.5",
     "oauthio-web": "^0.6.1",
     "passport": "^0.3.2",
@@ -128,5 +127,4 @@
     "unirest": "^0.5.1",
     "yelp": "^1.0.1"
   }
-}
 }
