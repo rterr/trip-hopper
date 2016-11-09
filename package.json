@@ -62,9 +62,10 @@
     "build:client:production:assets": "run-s clean:client:production:assets && cp -r client/assets build/production/client",
     "dev:hot": "webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cached --content-base ./",
     "ava": {
-    "require": [
-      "./test/helpers/setup-browser-env.js"
-    ]
+      "require": [
+        "./test/helpers/setup-browser-env.js"
+      ]
+    }
   },
   "author": "Joe Turner <joe@oampo.co.uk>",
   "license": "UNLICENSED",
@@ -93,10 +94,7 @@
     "ava": "^0.16.0",
     "axios": "^0.15.2",
     "babel-core": "^6.18.2",
-    "babel-loader": "^6.2.7",
     "babel-preset-airbnb": "^2.1.1",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "bell-on-bundler-error-plugin": "^1.0.8",
     "body-parser": "^1.15.2",
@@ -107,16 +105,13 @@
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
     "js-cookie": "^2.1.3",
-    "jsdom": "^9.8.3",
     "md5": "^2.2.1",
-    "mocha": "^3.1.2",
     "mongoose": "^4.6.5",
     "oauthio-web": "^0.6.1",
     "passport": "^0.3.2",
     "passport-google-oauth20": "^1.0.0",
     "passport-http-bearer": "^1.0.1",
     "react": "^15.3.2",
-    "react-addons-test-utils": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-google-maps": "^4.11.0",
     "react-redux": "^4.4.5",
@@ -128,5 +123,4 @@
     "unirest": "^0.5.1",
     "yelp": "^1.0.1"
   }
-}
 }
