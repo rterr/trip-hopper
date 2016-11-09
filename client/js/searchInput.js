@@ -24,21 +24,22 @@ var SearchInput = React.createClass({
   render: function(props){
     return (
       <div>
-    <form onSubmit={this.submitSearch}>
-    <input type="text" placeholder="In location..." name="searchLocation" id="searchLocation" className="text input-text" autoComplete="off" required ref="inputLocation" />
-    <input type="text" placeholder="Search for..." name="searchText" id="searchText" className="text input-text" autoComplete="off" required ref="inputText" />
-    <input type="submit" id="inputButton" className="button btn btn-primary search-button" name="submit" value="Search"/>
-  </form>
-  {/*<div>
-   <select onChange={this.optionChange} value={this.state.optionSelected}>
-      <option value="__">Choose an option...</option>
-      <option value="restaurants">Restaurants</option>
-      <option value="cafes">Cafes</option>
-      <option value="hotels">Hotels</option>
-      <option value="entertainment">entertainment</option>
-    </select> in Location...
-  </div>*/}
-  </div>)
+        <form onSubmit={this.submitSearch}>
+          <input type="text" placeholder="Search for..." name="searchText" id="searchText" className="text input-text" autoComplete="off" required ref="inputText" />
+          <input type="text" placeholder="In location..." name="searchLocation" id="searchLocation" className="text input-text" autoComplete="off" required ref="inputLocation" />
+          <input type="submit" id="inputButton" className="button btn btn-primary search-button" name="submit" value="Search"/>
+        </form>
+      {/*<div>
+       <select onChange={this.optionChange} value={this.state.optionSelected}>
+          <option value="__">Choose an option...</option>
+          <option value="restaurants">Restaurants</option>
+          <option value="cafes">Cafes</option>
+          <option value="hotels">Hotels</option>
+          <option value="entertainment">entertainment</option>
+        </select> in Location...
+      </div>*/}
+      </div>
+    )
   }
 });
 
