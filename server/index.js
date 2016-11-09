@@ -141,7 +141,7 @@ app.get('/api/:term', function(req, res){
 
   if (location) {
     query.location = location
-  } 
+  }
   if (cll) {
     query.cll = cll
   }
@@ -158,9 +158,9 @@ app.get('/api/:term', function(req, res){
 app.put('/user/:googleID/:tripName', passport.authenticate('bearer', {session: false}),
   function(req, res) {
     User.findOneAndUpdate({ 'googleID':req.user.googleID },
-                  { 
-                    $push: { 'trips':req.body }, 
-                    $set: { 'activeTrip':req.body._id} 
+                  {
+                    $push: { 'trips':req.body },
+                    $set: { 'activeTrip':req.body._id}
                   },
                   {new: true},
       function(err, user) {
@@ -175,9 +175,9 @@ app.put('/user/:googleID/:tripName', passport.authenticate('bearer', {session: f
 app.delete('/user/removeTrip/:googleID', passport.authenticate('bearer', {session: false}),
   function(req, res) {
     User.findOneAndUpdate({ 'googleID':req.user.googleID },
-                  { 
+                  {
                     $pull: { 'trips':{'_id':req.body._id} },
-                    $set: {'activeTrip': null} 
+                    $set: {'activeTrip': null}
                   },
                   {new: true},
       function(err, user) {
