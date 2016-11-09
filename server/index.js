@@ -130,8 +130,9 @@ app.get('/user', passport.authenticate('bearer', {session: false}), function(req
   });
 });
 
+
 //Yelp request endpoint
-app.get('/api/:term', function(req, res){
+app.get('/api/:term', function(req, res) {
   let term = req.params.term;
   let location = req.query.location;
   let cll = req.query.cll;

@@ -8,6 +8,7 @@ var store = require('./redux/store');
 var Provider = require('react-redux').Provider;
 var actions = require('./redux/actions');
 
+
 var router = require('react-router');
 var Router = router.Router;
 var Route = router.Route;
@@ -17,6 +18,8 @@ var Link = router.Link;
 
 var Landing = require('./landing');
 var Planner = require('./planner');
+// var { GettingStartedGoogleMap } = require('./map');
+//var {GooMap} = require('./map');
 
 var TripList = require('./tripList');
 var ViewTrip = require('./tripDisplay');
