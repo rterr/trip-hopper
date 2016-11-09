@@ -131,12 +131,21 @@ app.get('/user', passport.authenticate('bearer', {session: false}), function(req
 });
 
 //Yelp request endpoint
-app.get('/api/:term/:location', function(req, res){
+app.get('/api/:term', function(req, res){
   let term = req.params.term;
-  let location = req.params.location;
-  yelp.search({ term: term,
-   location: location,
-   sort: '1', limit: '3', radius_filter:'2000'})
+  let location = req.query.location;
+  let cll = req.query.cll;
+  let query = {term: term,
+    sort: '1', limit: '3', radius_filter:'2000'
+  };
+
+  if (location) {
+    query.location = location
+  } 
+  if (cll) {
+    query.cll = cll
+  }
+  yelp.search(query)
   .then(function (data) {
     return res.send(data)
    })
