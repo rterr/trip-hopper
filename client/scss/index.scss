@@ -112,9 +112,7 @@ a h1 {
 
 
 #logout {
-  position: fixed;
-  right: 5%;
-  top: 5%;
+  float: right;
   border: none;
   background-color: white;
   border-radius: 5px;
