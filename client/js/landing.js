@@ -8,7 +8,7 @@ var Landing = function(){
 
 	return (
 		<div id="landing">
-			<h1>TRIP HOPPER</h1>
+			<h1>Trip Hopper</h1>
 			<p>A trip planning app.</p>
 			<button className='button btn btn-primary'><a href="/auth/google">Register/Login</a></button>
 		</div>

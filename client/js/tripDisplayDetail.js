@@ -27,7 +27,7 @@ var TripDisplayDetail = React.createClass({
         <div className="poi-name"><a href={this.props.poi.url} target="_blank">{this.props.poi.name}</a> <img src={this.props.poi.rating_img_url} /></div>
         <div className="poi-location">{this.props.poi.location[0]}, {this.props.poi.location[1]}</div>
         <GoogleMap lat={this.props.poi.coordinate.latitude} lng={this.props.poi.coordinate.longitude}/>
-        <button onClick={this.deletePoi} className="delete-poi">Delete</button>
+        <input type="button" onClick={this.deletePoi} className="delete-poi" value="Delete" />
       </div>
     );
   }
