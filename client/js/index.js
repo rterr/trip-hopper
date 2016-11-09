@@ -3,7 +3,6 @@ var Yelp = require('yelp');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
-import { withGoogleMap } from "react-google-maps";
 var connect = require('react-redux').connect;
 var store = require('./redux/store');
 var Provider = require('react-redux').Provider;
@@ -19,7 +18,8 @@ var Link = router.Link;
 
 var Landing = require('./landing');
 var Planner = require('./planner');
-var GettingStartedGoogleMap = require('./map');
+// var { GettingStartedGoogleMap } = require('./map');
+//var {GooMap} = require('./map');
 
 
 
@@ -39,7 +39,6 @@ var routes = (
     	<Route path="/" component={App}>
 	        <IndexRoute component={Landing} />
           <Route path="/planner" component={Planner} />
-          <Route path="/map" component={GettingStartedGoogleMap} />
       </Route>
     </Router>
     </Provider>
