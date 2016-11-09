@@ -137,7 +137,7 @@ app.get('/api/:term', function(req, res) {
   let location = req.query.location;
   let cll = req.query.cll;
   let query = {term: term,
-    sort: '1', limit: '3', radius_filter:'2000'
+    sort: '1', limit: '3', radius_filter:'9000'
   };
 
   if (location) {

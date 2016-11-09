@@ -12,7 +12,7 @@ function PlannerHeader () {
         <div className="menu-bar">
           <Link to="/planner/triplist"><div>Trip List</div></Link>
           <Link to="/planner/viewtrip"><div>View Trip</div></Link>
-          <Link to="/planner/addpoi"><div>Add POI</div></Link>
+          <Link to="/planner/addpoi"><div>Add Hop Spot</div></Link>
           <Link to="/planner/newtrip"><div>New Trip</div></Link>
         </div>
       </div>
