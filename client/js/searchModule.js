@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
 
-var SearchInput = require('./searchInput');
+var PoiSearchInput = require('./poiSearchInput');
 var SearchResults = require('./searchResults');
 
 var SearchModule = React.createClass({
@@ -15,7 +15,7 @@ var SearchModule = React.createClass({
     return (
     <div className="search-module">
     <h1>Add POI</h1>
-      <SearchInput />
+      <PoiSearchInput />
       <SearchResults />
     </div> );
   }

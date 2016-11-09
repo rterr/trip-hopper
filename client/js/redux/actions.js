@@ -66,11 +66,16 @@ var fetchUser = function() {
 };
 
 // GET request for initial starting point-of-interest (poi)
-var poiSearch = function(searchTerm, searchLocation) {
+var poiSearch = function(searchTerm, searchLocation, searchCLL) {
   return function(dispatch) {
     var location = searchLocation;
     var term = searchTerm;
-    var url = `/api/${term}/${location}`;
+    var cll = searchCLL;
+    if (location) {
+      var url = `/api/${term}?location=${location}`;
+    } else if (cll) {
+      var url = `/api/${term}?cll=${cll}`;
+    }
     return fetch(url)
     .then(function(response) {
       if (response.status < 200 || response.status >= 300) {
