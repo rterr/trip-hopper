@@ -37,17 +37,35 @@ else {
 
 module.exports = {
     entry: path.resolve(__dirname, packageData['main:client']),
+    devServer: {
+      hot: true,
+      inline: true,
+      port: 7700,
+      historyApiFallback: true,
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
+  },
     output: {
         path: path.resolve(__dirname, outputPath),
         filename: filename,
+        publicPath: 'http://localhost:7700/dist',
     },
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     module: {
       loaders: [
         {
-          test: /\.js$/,
-          exclude: /(node_modules)/,
+          test: /\.js?$/,
+          exclude: /(node_modules|bower_components)/,
           loader: 'babel',
+    externals: {
+      'cheerio': 'window',
+      'react/lib/ExecutionEnvironment': true,
+      'react/lib/ReactContext': true,
+    },
+          query: {
+            presets: ['react', 'es2015', 'stage-0'],
+          },
         },
       ]
     },

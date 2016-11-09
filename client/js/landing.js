@@ -8,12 +8,11 @@ var Landing = function(){
 
 	return (
 		<div id="landing">
-			<div id="landing-header"><h1>Trip Hopper!</h1></div>
-			<span>A trip planning app.</span>
+			<h1>TRIP HOPPER</h1>
+			<p>A trip planning app.</p>
 			<button className='button btn btn-primary'><a href="/auth/google">Register/Login</a></button>
 		</div>
-
-		)
+	)
 
 };
 

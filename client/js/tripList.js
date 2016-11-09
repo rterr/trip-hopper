@@ -4,7 +4,7 @@ var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
 var TripListDetail = require('./tripListDetail');
 
-var TripSaveLoad = React.createClass({
+var TripList = React.createClass({
   getInitialState: function(event){
     return({
       viewMode: false})
@@ -28,13 +28,10 @@ var TripSaveLoad = React.createClass({
     });
 
     return (
-      <div>
-        <div className="saved-trips-button">
-          <input onClick={this.toggleViewTrips} type="button" name="load" value="View Saved Trips/Load" className="save-load" />
-        </div>
-        {this.state.viewMode && <div className="saved-display">
+      <div><h1>Saved Trips</h1>
+      <div className="saved-display">
           {savedTrips}
-        </div>}
+      </div>
       </div>
     )
   }
@@ -49,6 +46,6 @@ var mapStateToProps = function(state, props) {
     };
 };
 
-var Container = connect(mapStateToProps)(TripSaveLoad);
+var Container = connect(mapStateToProps)(TripList);
 
 module.exports = Container;

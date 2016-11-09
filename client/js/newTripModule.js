@@ -2,22 +2,22 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
-var SearchDetail = require('./searchDetail');
 
-var SearchResults = React.createClass({
-  componentDidMount: function() {
+var SearchInput = require('./searchInput');
+var NewTripResults = require('./newTripResults');
+
+var NewTripModule = React.createClass({
+  componentDidMount: function(){
     this.props.dispatch(actions.fetchUser());
   },
 
   render: function(props){
-    var searchResultsDetail = this.props.searchResults.map((poi) => {
-      return <SearchDetail key={poi.id} poi={poi} />
-    });
     return (
-      <div>
-        {searchResultsDetail}
-      </div>
-    )
+    <div className="search-module">
+    <h1>Start New Trip</h1>
+      <SearchInput />
+      <NewTripResults />
+    </div> );
   }
 });
 
@@ -29,6 +29,7 @@ var mapStateToProps = function(state, props) {
     };
 };
 
-var Container = connect(mapStateToProps)(SearchResults);
+
+var Container = connect(mapStateToProps)(NewTripModule);
 
 module.exports = Container;

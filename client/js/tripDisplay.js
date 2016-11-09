@@ -2,42 +2,57 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
+var TripDisplayDetail = require('./tripDisplayDetail');
 
 
 var TripDisplay = React.createClass({
-  getInitialState: function(){
-      return {
-         dummyPoi: [
-          {name: "Zoo", location: "CA", desc: "animals"},
-          {name: "Bar", location: "TX", desc: "get drunk"},
-          {name: "Restuarant", location: "NY", desc: "tasty food"}
-         ]
-      };
+  componentWillMount: function() {
+    this.props.dispatch(actions.fetchUser());
   },
 
-  editPoi: function(event){
-
+  deleteTrip: function(){
+    this.props.dispatch(actions.removeTrip(this.props.googleID, this.props.activeTrip));
   },
 
-  render: function(){
-    return(
-    <div className="trip-display">
-      {this.state.dummyPoi.map((poi) =>
-      {return <div className="trip-poi">
-          <div className="poi-name">{poi.name}</div>
-          <div className="poi-location">{poi.location}</div>
-          <div className="poi-desc">
-              {poi.desc}
-          </div>
-          <input type="button" name="edit" value="Edit" onClick={this.editPoi} />
-      </div>})}
-    </div>)
+  render: function(props){
+    if (this.props.activeTrip == null) {
+      return (
+        <div>
+          <p>Enter a trip</p>
+        </div>
+      )
+    }
+
+    var tripPoiList = this.props.trip.pois.map((poidata) => {
+      return (<TripDisplayDetail key={poidata.id} poi={poidata} />)
+    });
+
+    return (
+      <div>
+        <div className="trip-display-header">
+          <h1>{this.props.trip.tripName}</h1>
+          <input className="delete-trip" onClick={this.deleteTrip} type="button" name="rename" value="Delete Trip" />
+        </div>
+        <div className="trip-module">
+          {tripPoiList}
+        </div>
+      </div>
+    )
+
   }
 });
 
 var mapStateToProps = function(state, props) {
-    return {null:null
-    };
+  return {
+    googleID: state.googleID,
+    trip: state.trips.find((trip) => {
+      if(state.activeTrip == trip._id) {
+        return trip
+      }
+    }),
+    searchResults: state.searchResults,
+    activeTrip: state.activeTrip
+  };
 };
 
 var Container = connect(mapStateToProps)(TripDisplay);

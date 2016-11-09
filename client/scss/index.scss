@@ -1,26 +1,271 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 
+$gtMobile: min-width 40em 12 !default;
+
+html {
+  background-image: url("../assets/skyline.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+body {
+  font-family:sans-serif;
+  width: 90%;
+  margin: 0 auto;
+}
+
 #app {
-@include outer-container;
+  @include outer-container;
+}
+
+#landing {
+  text-align: center;
+  margin-top: 15%;
+  font-size: 3em;
+}
+
+#landing button {
+  background-color: white;
+  height: 2em;
+  width: 7em;
+  border-radius: 10px;
+  font-size: 0.5em;
+  border: none;
+  opacity: 0.9;
+}
+
+a:hover {
+  color: black;
+}
+
+a {
+  text-decoration: none;
+  color: dimgrey;
+}
+
+.search-button {
+  cursor: pointer;
+  font-size: 1em;
+  border: none;
+  color: dimgrey;
+  background-color: white;
+  opacity: 0.9;
+  border-radius: 5px;
+}
+
+.search-button:hover {
+  color: black;
+  background-color: #66FF66;
+}
+
+.input-text {
+  font-size: 1em;
+  border-radius: 5px;
+  border: none;
+  padding: 4px;
+  margin: 2px;
+}
+
+#title {
+  margin-top: 5%;
+  font-size: 3em;
+  text-align: center;
+  font-family: 'Shrikhand', cursive;
+}
+
+a h1 {
+  color:midnightblue;
+}
+
+.header {
+  text-align: center;
+}
+
+#powered-by {
+  font-size: .75em;
+}
+
+.yelp-credit {
+  img {
+    height:2em;
+    vertical-align:middle;
+  }
+  p {
+    margin:0px;
+  }
+}
+
+.yelp-credit {
+  margin-bottom: 0.75em;
+}
+
+
+#logout {
+  position: fixed;
+  right: 5%;
+  top: 5%;
+  border: none;
+  background-color: white;
+  border-radius: 5px;
+  opacity: 0.9;
+}
+
+#logout:hover {
+  background-color: #FF6666;
 }
 
 .search-module {
-  @include span-columns(6);
-  border: 2px solid firebrick;
+  @include span-columns(12);
+  /*border: 2px solid firebrick;*/
+
+  @include media($gtMobile){
+    @include span-columns(6);
+  }
 }
 
-.trip-module {
-  @include span-columns(6)
-  border:2px solid steelblue;
+.trip-module, .saved-display {
+  @include span-columns(12);
+  /*border:2px solid steelblue;*/
+
+  @include media($gtMobile){
+    @include span-columns(6);}
 }
 
-.search-poi, .trip-poi, .saved-trips {
-  border:1px solid gray;
+.trip-display-header, .saved-trips-button {
+  text-align: center;
+} 
+
+.trip-display-header input {
+  margin: 0.5em 0;
 }
 
-.rename-input {
-  font-size:2em;
+input[type=button] {
+  color: dimgrey;
+  width: 20em;
+  font-size: 1em;
+  background-color: white;
+  opacity: 0.9;
+  border: none;
+  border-radius: 5px;
 }
 
-h1 {display:inline-block}
+input[type=button]:hover {
+  cursor: pointer;
+  color: black;
+}
+
+input[type=button]:focus, input[type=text]:focus {
+  outline: none;
+}
+
+input[type=button].delete-trip:hover {
+  background-color: #FF6666;
+}
+
+input[type=button].save-load:hover {
+  background-color: #66FF66;
+}
+
+button.delete-poi {
+  color: dimgrey;
+  border: none;
+  background-color: white;
+  opacity: 0.9;
+  border-radius: 5px;
+}
+
+button.delete-poi:hover {
+  color: black;
+  background-color: #FF6666;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.search-poi, .trip-poi, .saved-trip, .poi-entry {
+  /*border:1px solid gray;*/
+  margin: 1em 0;
+  padding: .25em;
+  background-color: white;
+  opacity: 0.8;
+  border-radius: 10px;
+}
+
+.poi-img {
+	display:inline-block;
+	vertical-align:top;
+  float:left;
+  margin-right:0.5em;
+  width:75px;
+  height: 75px;
+  background-color:lightgray;
+  border-radius:0.75em;
+  img {
+  	width:75px;
+    border-radius:0.75em;
+  }
+}
+
+.poi-entry {
+  @include clearfix;
+  /*margin-bottom: 1em;*/
+  /*&:last-child {
+    margin-bottom:0em;
+  }*/
+}
+
+.poi-name {
+	font-size:1.25em;
+	font-weight:bold;
+  vertical-align:middle;
+  display:inline-block;
+  img {
+    vertical-align:middle;
+  }
+}
+
+.poi-name a {
+	color:#463d66;
+}
+
+/*.poi-rating {
+	font-size:1em;
+  background-color:slateblue;
+	color:white;
+	padding:0.25em;
+	border-radius:0.25em;
+	margin-left:0.25em;
+	text-shadow: 1px 1px 1px slategray;
+}*/
+
+.poi-reorder {
+  float:right;
+  font-size:1.5em;
+}
+
+.footer {
+  @include span-columns(12);
+  text-align:center;
+}
+
+.menu-bar {
+  @include span-columns(12);
+  @include clearfix;
+  display:inline-block;
+  margin-bottom: 1em;
+  a {
+    @include span-columns(3);
+  }
+  div {
+    background-color:steelblue;
+    color: white;
+    padding:1em;
+    border-radius: 0.75em;
+  }
+  a {color:white;}
+  div:hover {
+    background-color:gainsboro;
+  }
+}

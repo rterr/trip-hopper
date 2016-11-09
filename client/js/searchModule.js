@@ -3,15 +3,19 @@ var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
 
-var SearchInput = require('./searchInput');
+var PoiSearchInput = require('./poiSearchInput');
 var SearchResults = require('./searchResults');
 
 var SearchModule = React.createClass({
-  
-  render: function(){
+  componentDidMount: function(){
+    this.props.dispatch(actions.fetchUser());
+  },
+
+  render: function(props){
     return (
     <div className="search-module">
-      <SearchInput />
+    <h1>Add POI</h1>
+      <PoiSearchInput />
       <SearchResults />
     </div> );
   }
@@ -19,7 +23,9 @@ var SearchModule = React.createClass({
 
 var mapStateToProps = function(state, props) {
     return {
-      null:null
+      googleID: state.googleID,
+      trips: state.trips,
+      searchResults: state.searchResults
     };
 };
 
