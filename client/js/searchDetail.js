@@ -31,7 +31,6 @@ var SearchDetail = React.createClass({
         <div className="poi-location">{this.props.poi.location.display_address[0]} {this.props.poi.location.display_address[1]}</div>
         <GoogleMap lat={this.props.poi.location.coordinate.latitude} lng={this.props.poi.location.coordinate.longitude}/>
         <button onClick={this.addPoi} >Add To Existing Trip</button>
-        <button onClick={this.addTrip} >Start New Trip</button>
       </div>
     )
   }

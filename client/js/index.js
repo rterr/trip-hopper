@@ -18,6 +18,11 @@ var Link = router.Link;
 var Landing = require('./landing');
 var Planner = require('./planner');
 
+var TripList = require('./tripList');
+var ViewTrip = require('./tripDisplay');
+var NewTrip = require('./newTripModule');
+var AddPoi = require('./searchModule');
+
 
 
 var App = function(props) {
@@ -31,11 +36,17 @@ var App = function(props) {
 
 
 var routes = (
-	<Provider store={store}>
+  <Provider store={store}>
     <Router history={hashHistory}>
-    	<Route path="/" component={App}>
-	        <IndexRoute component={Landing} />
-          <Route path="/planner" component={Planner} />
+      <Route path="/" component={App}>
+          <IndexRoute component={Landing} />
+          <Route path="/planner" component={Planner}>
+            <IndexRoute component={TripList} />
+            <Route path="/planner/viewtrip" component={ViewTrip} />
+            <Route path="/planner/newtrip" component={NewTrip} />
+            <Route path="/planner/triplist" component={TripList} />
+            <Route path="/planner/addpoi" component={AddPoi} />
+          </Route>
       </Route>
     </Router>
     </Provider>
