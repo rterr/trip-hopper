@@ -18,7 +18,7 @@ var TripListDetail = React.createClass({
     return (
       <div className="saved-trip">
           <div className="trip-name">{this.props.trip.tripName}</div>
-          <Link to="/planner/viewtrip"><input type="button" name="load" value="Load" onClick={this.loadTrip} /></Link>
+          <Link to="/planner/viewtrip"><input type="button" className="save-load" name="load" value="Load" onClick={this.loadTrip} /></Link>
       </div>
     )
   }

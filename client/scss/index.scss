@@ -12,9 +12,13 @@ html {
 }
 
 body {
-  font-family:sans-serif;
+  font-family: 'Open Sans', sans-serif;
   width: 90%;
   margin: 0 auto;
+}
+
+h1 {
+  font-family: 'Oleo Script', cursive;
 }
 
 #app {
@@ -22,9 +26,13 @@ body {
 }
 
 #landing {
-  text-align: center;
-  margin-top: 15%;
-  font-size: 3em;
+  h1 {
+    font-size:3em;
+    margin-bottom:0px;
+  }
+  font-size: 2em;
+  text-align:center;
+  margin-top:15%;
 }
 
 #landing button {
@@ -73,7 +81,7 @@ a {
   margin-top: 5%;
   font-size: 3em;
   text-align: center;
-  font-family: 'Shrikhand', cursive;
+  font-family: 'Oleo Script', cursive;
 }
 
 a h1 {
@@ -136,7 +144,7 @@ a h1 {
 
 .trip-display-header, .saved-trips-button {
   text-align: center;
-} 
+}
 
 .trip-display-header input {
   margin: 0.5em 0;
@@ -144,45 +152,32 @@ a h1 {
 
 input[type=button] {
   color: dimgrey;
-  width: 20em;
+  padding:0.5em 1em;
   font-size: 1em;
-  background-color: white;
+  background-color: lightskyblue;
   opacity: 0.9;
   border: none;
   border-radius: 5px;
-}
 
-input[type=button]:hover {
-  cursor: pointer;
-  color: black;
+  &.delete-trip:hover {
+    background-color: #FF6666;
+  }
+  &.delete-poi:hover {
+    background-color: #FF6666;
+  }
+  &.save-load:hover {
+    background-color: #66FF66;
+  }
+  &:hover {
+    cursor: pointer;
+    color: black;
+  }
 }
 
 input[type=button]:focus, input[type=text]:focus {
   outline: none;
 }
 
-input[type=button].delete-trip:hover {
-  background-color: #FF6666;
-}
-
-input[type=button].save-load:hover {
-  background-color: #66FF66;
-}
-
-button.delete-poi {
-  color: dimgrey;
-  border: none;
-  background-color: white;
-  opacity: 0.9;
-  border-radius: 5px;
-}
-
-button.delete-poi:hover {
-  color: black;
-  background-color: #FF6666;
-  opacity: 0.9;
-  cursor: pointer;
-}
 
 .search-poi, .trip-poi, .saved-trip, .poi-entry {
   /*border:1px solid gray;*/
@@ -214,6 +209,16 @@ button.delete-poi:hover {
   /*&:last-child {
     margin-bottom:0em;
   }*/
+}
+
+.saved-trip {
+  @include clearfix;
+  vertical-align:center;
+  input[type=button] {float:right;}
+}
+
+.trip-name {
+  @extend .poi-name;
 }
 
 .poi-name {
