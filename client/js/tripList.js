@@ -28,14 +28,15 @@ var TripList = React.createClass({
     });
 
     return (
-      <div><h1>Saved Trips</h1>
+      <div>
       <div className="saved-display">
+      <h1>Saved Trips</h1>
           {savedTrips}
       </div>
       </div>
     )
   }
-  
+
 });
 
 var mapStateToProps = function(state, props) {
