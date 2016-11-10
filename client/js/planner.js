@@ -19,10 +19,10 @@ render: function(props) {
       <div>
       <PlannerHeader />
         {this.props.children}
-      <div className="yelp-credit footer"> 
-          <p id="powered-by">POWERED BY</p>
-          <a href="http://www.yelp.com" ><img src="./assets/yelp-2c.png" /></a>
-        </div>
+      <div className="yelp-credit footer">
+          <p>POWERED BY</p>
+          <a href="http://www.yelp.com" target="_blank"><img src="./assets/yelp-2c.png" /></a>
+      </div>
       </div>
   )
 }

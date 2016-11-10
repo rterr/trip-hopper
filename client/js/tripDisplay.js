@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
 var TripDisplayDetail = require('./tripDisplayDetail');
+var Link = require('react-router').Link;
 
 
 var TripDisplay = React.createClass({
@@ -31,7 +32,7 @@ var TripDisplay = React.createClass({
       <div>
         <div className="trip-display-header">
           <h1>{this.props.trip.tripName}</h1>
-          <input className="delete-trip" onClick={this.deleteTrip} type="button" name="rename" value="Delete Trip" />
+          <Link to="/planner/triplist"><input className="delete-trip" onClick={this.deleteTrip} type="button" name="rename" value="Delete Trip" /></Link>
         </div>
         <div className="trip-module">
           {tripPoiList}

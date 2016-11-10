@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var connect = require('react-redux').connect;
 var actions = require('./redux/actions');
+var Link = require('react-router').Link;
 import GoogleMap from './maps'
 
 var SearchDetail = React.createClass({
@@ -30,7 +31,7 @@ var SearchDetail = React.createClass({
         <div className="poi-name"><a href={this.props.poi.url} target="_blank">{this.props.poi.name}</a> <img src={this.props.poi.rating_img_url} /></div>
         <div className="poi-location">{this.props.poi.location.display_address[0]} {this.props.poi.location.display_address[1]}</div>
         <GoogleMap lat={this.props.poi.location.coordinate.latitude} lng={this.props.poi.location.coordinate.longitude}/>
-        <button onClick={this.addPoi} >Add To Existing Trip</button>
+        <Link to="/planner/viewtrip"><input type="button" onClick={this.addPoi} value="Add To Existing Trip" /></Link>
       </div>
     )
   }
