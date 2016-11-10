@@ -5,7 +5,6 @@ var jsonParser = require('body-parser');
 var dotenv = require('dotenv');
 var request = require('request');
 var Yelp = require('yelp');
-import unirest from 'unirest';
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var passport = require("passport");
