@@ -67,7 +67,7 @@
       ]
     }
   },
-  "author": "Joe Turner <joe@oampo.co.uk>",
+  "author": "TeamAwesome",
   "license": "UNLICENSED",
   "devDependencies": {
     "babel-cli": "^6.11.4",
