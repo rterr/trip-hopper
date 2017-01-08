@@ -4,17 +4,12 @@
 $gtMobile: min-width 50em 12 !default;
 
 html {
-  background-image: url("../assets/skyline.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
+  background-color:gainsboro;
 }
 
 body {
   font-family: 'Open Sans', sans-serif;
-  width: 90%;
-  margin: 0 auto;
+  margin:0 0;
 }
 
 h1 {
@@ -22,17 +17,23 @@ h1 {
 }
 
 #app {
-  @include outer-container;
 }
 
 #landing {
   h1 {
     font-size:3em;
     margin-bottom:0px;
+    line-height:1em;
   }
   font-size: 2em;
   text-align:center;
   margin-top:15%;
+  padding:2em 0;
+  background-image: url("../assets/skyline.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 #landing button {
@@ -42,6 +43,65 @@ h1 {
   border-radius: 10px;
   font-size: 0.5em;
   border: none;
+}
+
+#logout {
+  @include clearfix;
+  display:block;
+  input[type=button] {
+  font-size:.75em;
+  color: dimgrey;
+  float: right;
+  border: none;
+  background-color: white;
+  border-radius: 5px;
+  &:hover {
+    background-color: #FF6666;}
+  }
+}
+
+.header {
+  text-align: center;
+  border-bottom:1em #283539 solid;
+  padding:1em 1em 0em 1em;
+  h1 {
+    display:block;
+    margin:0em 0 0.3em 0;
+    font-size: 5em;
+    color:white;
+    text-shadow: 2px 2px 0 #000000;
+    line-height:1em;
+
+  }
+  background-image: url("../assets/skyline-wide.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.menu-bar {
+  @include span-columns(12);
+  @include clearfix;
+  display:inline-block;
+  margin: 1em 0;
+  font-family: 'Open Sans Condensed', sans-serif;
+  text-transform:uppercase;
+  a {
+    @include span-columns(3);
+    font-size:1.5em;
+    color:white;
+  }
+  div {
+    background-color:#72937b;
+    color: white;
+    padding:0.75em;
+  }
+  div:hover {
+    background-color:#496b53;
+  }
+}
+
+#planner-body {
+  @include outer-container;
 }
 
 a:hover {
@@ -79,16 +139,6 @@ a h1 {
   color:#0f578b;
 }
 
-.header {
-  margin-top: 2em;
-  text-align: center;
-  h1 {
-    display:block;
-    margin-top:0.25em;
-    font-size: 4em;
-  }
-}
-
 #powered-by {
   font-size: .75em;
 }
@@ -105,24 +155,9 @@ a h1 {
   }
 }
 
-
-#logout {
-  @include clearfix;
-  display:block;
-  input[type=button] {
-  font-size:.75em;
-  color: dimgrey;
-  float: right;
-  border: none;
-  background-color: white;
-  border-radius: 5px;
-  &:hover {
-    background-color: #FF6666;}
-  }
-}
-
 .search-module, .trip-module, .saved-display {
   @include span-columns(12);
+  padding:0 0.5em;
   @include media($gtMobile){
     @include span-columns(8);
     @include shift(2);
@@ -139,10 +174,12 @@ a h1 {
 input[type=button] {
   color: white;
   padding:0.5em 1em;
-  font-size: 1em;
+  font-size: 1.25em;
+  font-weight:bold;
   background-color: #6994a9;
   border: none;
-  border-radius: 5px;
+  font-family:'Open Sans Condensed',sans-serif;
+  text-transform:uppercase;
 
   &.delete-trip:hover {
     background-color: #FF6666;
@@ -171,8 +208,7 @@ input[type=button]:focus, input[type=text]:focus {
   /*border:1px solid gray;*/
   margin-top:1em;
   padding: .25em;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
+  background-color: #ffffff;
 }
 
 .poi-img {
@@ -183,11 +219,8 @@ input[type=button]:focus, input[type=text]:focus {
   width:75px;
   height: 75px;
   background-color:lightgray;
-  border-radius:0.75em;
   img {
-  	width:75px;
-    border-radius:0.75em;
-  }
+  	width:75px;}
 }
 
 .poi-entry {
@@ -209,17 +242,21 @@ input[type=button]:focus, input[type=text]:focus {
 }
 
 .poi-name {
-	font-size:1.25em;
+	font-size:1.75em;
+  padding:0.25em;
+  margin-bottom:0.25em;
 	font-weight:bold;
+  font-family:'Open Sans Condensed',sans-serif;
   vertical-align:middle;
-  display:inline-block;
-  img {
-    vertical-align:middle;
-  }
+  display:block;
+  background-color:#72937b;
 }
 
 .poi-name a {
-	color:#463d66;
+  color:#ffffff;
+	&:hover{
+    color:#463d66;
+  }
 }
 
 /*.poi-rating {
@@ -241,26 +278,6 @@ input[type=button]:focus, input[type=text]:focus {
   @include span-columns(12);
   text-align:center;
   margin-top:1em;
-}
-
-.menu-bar {
-  @include span-columns(12);
-  @include clearfix;
-  display:inline-block;
-  margin-bottom: 1em;
-  a {
-    @include span-columns(3);
-  }
-  div {
-    background-color:#72937b;
-    color: white;
-    padding:1em;
-    border-radius: 0.75em;
-  }
-  a {color:white;}
-  div:hover {
-    background-color:gainsboro;
-  }
 }
 
 .map-display {

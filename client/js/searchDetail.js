@@ -28,8 +28,8 @@ var SearchDetail = React.createClass({
     return (
       <div className="poi-entry">
         <div className="poi-img"><img src={this.props.poi.image_url} /></div>
-        <div className="poi-name"><a href={this.props.poi.url} target="_blank">{this.props.poi.name}</a> <img src={this.props.poi.rating_img_url} /></div>
-        <div className="poi-location">{this.props.poi.location.display_address[0]} {this.props.poi.location.display_address[1]}</div>
+        <div className="poi-name"><a href={this.props.poi.url} target="_blank">{this.props.poi.name}</a></div>
+        <div className="poi-location"><img src={this.props.poi.rating_img_url} /><br />{this.props.poi.location.display_address[0]} {this.props.poi.location.display_address[1]}</div>
         <GoogleMap lat={this.props.poi.location.coordinate.latitude} lng={this.props.poi.location.coordinate.longitude}/>
         <Link to="/planner/viewtrip"><input type="button" onClick={this.addPoi} value="Add To Existing Trip" /></Link>
       </div>
